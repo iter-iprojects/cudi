@@ -1,0 +1,72 @@
+== cudi v 0.5 beta early version
+
+Cudi es un gestor de proyectos basado en web. Incluye personal, tareas, notificaciones, reportes, gráficas comparativas, composición de pdf y mucho más.
+ 
+
+== Instalación 
+
+1. en línea de comandos:
+       git clone git://cudi.tal tal
+
+2. Cambiar al directorio <tt>cudi</tt> y ejecutar  bundle install:
+       cd cudi<tt>bundle install</tt>
+
+3. Configurar estos ficheros con tus datos:
+       edit config/mail.yml
+       edit config/database.yml
+       edit config/ldap.yml
+
+4. ejecutar migración:
+       rake db:migration
+
+5. cargar estructuras:
+       rake db:schema:load
+
+6. ejecutar rake cudi setup:
+       rake cudi:setup
+
+7. asegurar en la base de datos, que  su usuario tiene permiso de administrador.
+       table roles_users -> role_id => 1 user_id => 1
+
+8. poner en marcha el servidor
+   	rails s 
+
+
+
+
+== Welcome to cudi v 0.5 beta
+
+This is the first version of cudi.
+
+Cudi is an online web-based Project Managment tool. It includes staff, task & contact management, reporting, pdf composition and much more!
+
+more documentation will be update soon 
+
+== Getting Started
+
+1. At the command prompt, clone cudi Rails application:
+       git clone git://cudi.tal tal 
+
+2. Change directory to <tt>cudi</tt> and execute bundle install:
+       cd cudi<tt>bundle install</tt> 
+
+3. Setup with your data:
+       edit config/mail.yml
+       edit config/database.yml
+       edit config/ldap.yml
+
+4. execute migration:
+       rake db:migration
+
+6. load schema:
+       rake db:schema:load
+
+5. execute rake cudi setup:
+       rake cudi:setup
+
+7. check in database, thats user id has admin allow.
+       table roles_users ->  role_id => 1 user_id => 1
+
+
+6. start server
+       rails s	
