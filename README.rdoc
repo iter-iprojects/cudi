@@ -6,7 +6,7 @@ Cudi es un gestor de proyectos basado en web. Incluye personal, tareas, notifica
 == Instalación 
 
 1. en línea de comandos:
-       git clone git://cudi.tal tal
+       git clone git://github.com/iter-iprojects/cudi.git
 
 2. Cambiar al directorio <tt>cudi</tt> y ejecutar  bundle install:
        cd cudi<tt>bundle install</tt>
