@@ -45,7 +45,7 @@ more documentation will be update soon
 == Getting Started
 
 1. At the command prompt, clone cudi Rails application:
-       git clone git://cudi.tal tal 
+       git clone git://github.com/iter-iprojects/cudi.git 
 
 2. Change directory to <tt>cudi</tt> and execute bundle install:
        cd cudi<tt>bundle install</tt> 
