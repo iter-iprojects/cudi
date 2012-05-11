@@ -1,0 +1,76 @@
+
+<section class="createNew">
+
+<%= form_for(@proyecto) do |f| %>
+  <% if @proyecto.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@proyecto.errors.count, "error") %> prohibited this proyecto from being saved:</h2>
+
+      <ul>
+      <% @proyecto.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <aside class="field">
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </aside>
+   <aside class="field">
+    <%= f.label :priority %><br />
+    <%= f.text_field :priority %>
+  </aside>
+   <aside class="field">
+    <%= f.label :mainresource %><br />
+    <%= f.text_field :mainresource %>
+  </aside>
+  <aside class="field">
+    <%= f.label :resources %><br />
+
+  <%= select_tag("proyecto[resources]", options_for_select(@users.collect { |ff| [ff.email, ff.id] }, @users.collect { |fs| fs.id }),
+                   {:multiple=>true, :id => "proyecto_resources"}) %>
+	</aside>
+
+<div id="userplace">
+
+        <% @users.each do |u| %>
+
+                <%#= u.email %> <%#=  check_box_tag('checkbox[]', value= u.id, checked = false, options = { :class => 'top5'}) %>
+
+        <% end %>
+</div>
+
+
+ 
+
+
+  <aside class="field">
+    <%= f.label :status %><br />
+    <%= f.text_field :status,  :value => 'activo'%>
+  </aside>
+  <aside class="field">
+    <%= f.label :comments %><br />
+    <%= f.text_field :comments %>
+  </aside>
+<!--
+  <aside class="field">
+    <#%= f.label :actions %><br />
+    <#%= f.text_field :actions %>
+  </aside>
+-->
+  <aside class="field">
+    <%= f.label :averange %><br />
+    <%= f.text_field :averange %>
+  </aside>
+
+
+
+  <aside class="actions">
+    <%= f.submit %>
+  </aside>
+  
+  </section>
+
+  <% end %>

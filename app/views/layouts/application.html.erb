@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+  <head>      
+    <title>CUDI - Coordinación de la Unidad de Desarrollo</title>	
+    <link rel="icon" href="../images/favicon.png" type="image/png">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+		
+    <%if content_for? :cudidocs%>
+
+      <%= stylesheet_link_tag "application.css"  , "submenucudidocs.css" , "customcudidocs.css", "menucudidocs.css" %> 
+      <% stylesheet_link_tag "jquery-ui",  :recursive => true %>
+      <% stylesheet_link_tag "jquery_sheet/jquery.sheet.css"  %>
+      <%= stylesheet_link_tag "jquery.colorPicker.css" %>	        
+      <%= stylesheet_link_tag "apprise.css" %>	        	        	
+      <%= stylesheet_link_tag "jquery_sheet/jquery.sheet.css" , "jquery_sheet/jquery-ui/theme/jquery-ui.css" %>			
+      <%= stylesheet_link_tag "jQuery-Impromptu/default.css" , "jQuery-Impromptu/themes/ext-blue.css" , "jQuery-Impromptu/themes/smooth.css" , 
+                              "jQuery-Impromptu/themes/classic-impromptu.css" , "jQuery-Impromptu/themes/clean-blue.css" , "jQuery-Impromptu/themes/brown/brown.css" , 
+                              "jQuery-Impromptu/themes/columns.css" %>	  
+      <%= javascript_include_tag "jquery_sheet/jquery-1.5.2.js" , "jquery_sheet/jquery.sheet.js" , "jquery_sheet/parser.js", "jquery_sheet/plugins/jquery.scrollTo-min.js" ,  
+                                 "jquery_sheet/jquery-ui/ui/jquery-ui.min.js" ,  "jquery_sheet/plugins/jquery.colorPicker.min.js" , "jquery_sheet/plugins/jquery.elastic.min.js" ,  
+                                 "jquery_sheet/jquery.sheet.advancedfn.js", "jquery_sheet/jquery.sheet.financefn.js" , :charset => "utf-8"%> 
+      <%= javascript_include_tag   "jquery_sheet/plugins/jquery.colorPicker.min.js", "jquery_sheet/plugins/jquery.elastic.min.js", 
+                                   "jquery_sheet/plugins/jquery.scrollTo-min.js", :charset => "utf-8"  %>
+      <%= javascript_include_tag    "jQuery-Impromptu/jquery-impromptu.js" , :charset => "utf-8"  %>
+      <%= javascript_include_tag   "apprise-1.5.full.js", :charset => "utf-8"  %>				
+      <%= javascript_include_tag   "jquery_sheet/plugins/raphael-min.js", "jquery_sheet/plugins/g.raphael-min.js" ,  :charset => "utf-8"  %>
+
+    <% else %>        
+
+      <%if content_for? :panelcontrols%>
+        <%= stylesheet_link_tag "panelcontrol.css"  %>	
+      <% end  %>
+       		                    
+      <%= stylesheet_link_tag "custom.css", "menu.css", "submenu.css" , "jquery.jqplot.css", "scaffold.css" %>
+      <%= stylesheet_link_tag 'application', :media => "all" %>
+      <%= stylesheet_link_tag  "themes/apple/theme.css" , "themes/default/theme.css" , "themes/jqt/main.css" %>
+      <%= stylesheet_link_tag "jqgrid/ui.jqgrid.css" , "jqgrid/ui.multiselect.css", "jqgrid/themes/default/jquery-ui-1.8.custom.css" %>
+			
+							
+      <%= javascript_include_tag"jquery.js" %>
+      <%= javascript_include_tag"ifie.js" %>
+      <%= javascript_include_tag"jcheck.js" %>
+      <%= javascript_include_tag"jcheck2.js" %>
+      <%= javascript_include_tag"jqgrid/i18n/grid.locale-bg.js" %>
+      <%= javascript_include_tag"jqgrid/i18n/grid.locale-bg1251.js" %>						
+      <%= javascript_include_tag"jQuery-File-Download/jQuery.download.js" %>			
+      <% javascript_include_tag"jqgrid/i18n/grid.locale-cat.js" %>
+      <% javascript_include_tag"jqgrid/i18n/grid.locale-cn.js" %>
+      <% javascript_include_tag"jqgrid/i18n/grid.locale-cs.js" %>
+      <% javascript_include_tag"jqgrid/i18n/grid.locale-da.js" %>
+      <% javascript_include_tag"jqgrid/i18n/grid.locale-de.js" %>
+      <% javascript_include_tag"jqgrid/i18n/grid.locale-el.js" %>
+      <% javascript_include_tag"jqgrid/i18n/grid.locale-en.js" %>
+      <%= javascript_include_tag"jqgrid/i18n/grid.locale-es.js" %>
+      <% javascript_include_tag"jqgrid/i18n/grid.locale-fa.js" %>
+			
+      <% javascript_include_tag"jqgrid/i18n/grid.locale-fi.js" %>
+      <% javascript_include_tag"jqgrid/i18n/grid.locale-fr.js" %>
+      <% javascript_include_tag"jqgrid/i18n/grid.locale-gl.js" %>
+      <% javascript_include_tag"jqgrid/i18n/grid.locale-he.js" %>
+      <% javascript_include_tag"jqgrid/i18n/grid.locale-hu.js" %>
+      <% javascript_include_tag"jqgrid/i18n/grid.locale-is.js" %>
+      <% javascript_include_tag"jqgrid/i18n/grid.locale-it.js" %>
+      <% javascript_include_tag"jqgrid/i18n/grid.locale-ja.js" %>
+      <% javascript_include_tag"jqgrid/i18n/grid.locale-nl.js" %>
+			
+      <% javascript_include_tag"jqgrid/i18n/grid.locale-no.js" %>
+      <% javascript_include_tag"jqgrid/i18n/grid.locale-pl.js" %>
+      <% javascript_include_tag"jqgrid/i18n/grid.locale-pt.js" %>
+      <% javascript_include_tag"jqgrid/i18n/grid.locale-pt-br.js" %>
+      <% javascript_include_tag"jqgrid/i18n/grid.locale-ro.js" %>
+      <% javascript_include_tag"jqgrid/i18n/grid.locale-ru.js" %>
+      <% javascript_include_tag"jqgrid/i18n/grid.locale-sk.js" %>
+      <% javascript_include_tag"jqgrid/i18n/grid.locale-sv.js" %>
+      <% javascript_include_tag"jqgrid/i18n/grid.locale-tr.js" %>
+			
+      <%= javascript_include_tag"jqgrid/i18n/grid.locale-ua.js" %>
+      <%= javascript_include_tag"jqgrid/jquery-ui-1.8.custom.min.js" %>
+      <%= javascript_include_tag"jqgrid/jquery.jqGrid.min.js" %>
+      <%= javascript_include_tag"jqgrid/ui.multiselect.js" %>
+      <%= javascript_include_tag"jquery.checkbox.js" %>
+      <%= javascript_include_tag"jquery.checkbox.min.js" %>
+      <%= javascript_include_tag"jquery.jqplot.js" %>
+      <%= javascript_include_tag"jquery.multiselect.js" %>
+      <%= javascript_include_tag"jquery.ui.widget.js" %>
+			
+      <%= javascript_include_tag"jquery.usermode.js" %>
+      <%= javascript_include_tag"plugins/jqplot.barRenderer.js" %>
+      <%= javascript_include_tag"plugins/jqplot.categoryAxisRenderer.js" %>
+      <%= javascript_include_tag"rails.js" %>
+      <%= javascript_include_tag"src/jquery.multiselect.js" %>
+      <%= javascript_include_tag"src/jquery.multiselect.filter.js" %>
+      <%= javascript_include_tag"src/jquery.multiselect.filter.min.js" %>
+      <%= javascript_include_tag"src/jquery.multiselect.min.js" %>
+      <%= javascript_include_tag"ui.checkbox.js" %>
+			
+      <%= javascript_include_tag"application.js" %>	
+      <%= javascript_include_tag "jqueryfileupload/jquery.fileupload.js", "jqueryfileupload/jquery.fileupload-ui.js", "jqueryfileupload/jquery.iframe-transport.js"  %>
+	   	
+      <% javascript_include_tag :all, :recursive => true %>
+      <% javascript_include_tag "jqtouch", :recursive => true %>
+     
+      <% javascript_include_tag "jquery.js", "jqgrid/jquery.jqGrid.min.js",  "jqgrid/jquery-ui-1.8.custom.min.js " ,"jqgrid/ui.multiselect.js" %>
+      <% javascript_include_tag :all, 'plupload/js', :recursive => true %>
+
+      <% javascript_include_tag :all, 'jquery_sheet/plugins', :recursive => true %>
+      <% javascript_include_tag :all, 'jquery_sheet/jquery-ui/ui', :recursive => true %>
+    		
+    		
+      <%if content_for? :proyectos%>       		
+        <%= javascript_include_tag  "tiny_mce/" , :recursive => true %>
+    	<%= javascript_include_tag  "tiny_mce/tiny_mce.js" %>
+    	<%= javascript_include_tag  "tiny_mce_init.js" %>
+      <% end %>
+       		
+      <%if content_for? :futureproyectosactions%>       		
+        <%= javascript_include_tag  "tiny_mce/" , :recursive => true %>
+    	<%= javascript_include_tag  "tiny_mce/tiny_mce.js" %>
+    	<%= javascript_include_tag  "tiny_mce_init.js" %>
+      <% end %>
+       		
+       		
+    <% end  %>
+
+  <%= csrf_meta_tag %>
+
+</head>
+
+<body >
+    
+  <div id="container" class="body" >
+
+    <header id="banner" >			
+      <figure>
+        <img src="../images/cudilogo.png" />
+      </figure>
+      <h1><a href="http://yourlocation/"><abbr>CUDI</abbr><strong> Coordinación de la Unidad de Desarrollo de Informática</strong></a></h1>
+			
+      <div id="noticealert">			
+        <ul class="userInt">		
+          <li class="sign"> <% if user_signed_in? %><%= link_to 'Sign Out', destroy_user_session_path, html_options = {:class => 'sign_out'}%><% end %></li>
+	  <% cla='alertsin' if alert.nil? %>
+          <% cla='alert' if !alert.nil? %> 
+          <% clanot='noticesin' if notice.nil? %>
+          <% clanot='notice' if !notice.nil? %> 
+   	  <li class="alerta">
+	    <p class="<%=clanot%>"><%=notice%></p>
+	    <p class="<%=cla%>"><%=alert%></p>
+	  </li>			
+	</ul>	    
+      </div> <!-- /noticealert -->					
+    </header>
+
+    <div id="example_3" class="example_content" id="example_3">
+      <div id="top_navigation">
+        <% if user_signed_in? %>
+          <%= render_navigation(:level => 1)  %>
+        <% end %>
+      </div>
+    </div>
+
+
+    <section class="body" id="tablecontent">
+      <% if !user_signed_in? %><% end %>
+      <%= yield %>
+      <%= yield :commentproyecto %>
+    </section>
+
+
+    <footer>
+      <p class="footer float_right"> Proyecto dise&ntilde;ado por <abbr> UDI </abbr> - Unidad de Desarrollo de Inform&aacute;tica - ITER S.A.</p> 
+    </footer>
+  </div ><!-- /#container -->
+</body>
+
+
+ </html>

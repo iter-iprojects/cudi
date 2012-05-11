@@ -1,0 +1,32 @@
+<p>Bienvenido  <%= @resource.email %>!</p>
+
+
+<p> Para confirmar tú subscripción, al proyecto C.U.D.I, es necesario hacer click en el siguiente enlace
+<!-- <p>You can confirm your account through the link below:</p> -->
+<p><%= link_to 'Confirmar', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
+
+
+
+
+
+<div>
+Cuenta CUDI
+
+Instituto Tecnológico y de Energías Renovables, S.A. (ITER, S.A.)
+
+Polígono Industrial de Granadilla, s/n 38600 - Granadilla de Abona
+Santa Cruz de Tenerife - España (Spain)
+
+TEL: + 34 922-747-700;   FAX: +34 922-747-701
+
+www.iter.es
+
+Antes de imprimir este e-mail piense bien si es necesario hacerlo. El medioambiente es cosa de todos.
+
+Please consider your environmental responsibility. Before printing this e-mail, ask yourself whether you really need a hard copy.
+ADVERTENCIA:
+
+   La información incluida en este e-mail es CONFIDENCIAL, siendo para uso exclusivo del destinatario arriba mencionado. Si Usted lee este mensaje y no es el destinatario indicado, le informamos que está totalmente prohibida cualquier utilización, divulgación, distribución y/o reproducción de esta comunicación sin autorización expresa en virtud de la legislación vigente. Si ha recibido este mensaje por error, le rogamos nos lo notifique inmediatamente por esta misma vía a GRUPO ITER, S.A. y proceda a su eliminación.
+DISCLAIMER:
+
+   This message is intended exclusively for its addressee and may contain information that is CONFIDENTIAL and protected by professional privilege. If you are not the intended recipient you are hereby notified that any dissemination, copy or disclosure of this communication is strictly prohibited by law. If this message has been received in error, please immediately notify us via e-mail to GRUPO ITER, S.A. and delete it.</div>

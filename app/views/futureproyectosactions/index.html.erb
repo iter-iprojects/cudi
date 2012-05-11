@@ -1,0 +1,300 @@
+
+<%content_for :futureproyectosactions do%>
+  ''
+<% end  %>    
+
+
+<%= javascript_tag "var vpc='"+session[:pcfpa].to_s+"'" %>
+<%= javascript_tag "var v='"+session[:mrfpa].to_s+"'" %>
+<%= javascript_tag "var st='"+session[:stfpa].to_s+"'" %>
+<%= javascript_tag "var rs='"+session[:rsfpa].to_s+"'" %>
+
+<%= javascript_tag "$(document).ready(function () {
+      $('#span'+st).addClass('selectedsecondmenu');
+      if (v=='yes')  $('#puppy_gooddog').attr('checked', true);
+      if (v=='no')  $('#puppy_gooddog').attr('checked', false);  
+      if (v=='yes') $('#spanmr').addClass('selectedsecondmenu');
+      if (v=='no')  $('#spanmr').removeClass('selectedsecondmenu'); 	    		
+      if (vpc=='yes')  $('#pcolab_pcolab').attr('checked', true);
+      if (vpc=='no')  $('#pcolab_pcolab').attr('checked', false); 
+      if (vpc=='yes') $('#spanpcolab').addClass('selectedsecondmenu'); 
+      if (vpc=='no') $('#spanpcolab').removeClass('selectedsecondmenu');	   	 		
+    });"
+%>
+
+<%= javascript_tag "$('#puppy_gooddog').live('click', function() {
+      if ($('##puppy_gooddog:checked').is(':checked')) {	
+        $('#puppy_gooddog').val('yes');
+        $('puppy[gooddog]').val('yes');
+        $('span #puppy_gooddog').attr('checked', true);
+        $('#spanmr').addClass('selectedsecondmenu');  	   	 
+      }else{	 	
+        $('#puppy_gooddog').val('no');	
+        $('#puppy_gooddog').attr('checked', false);
+        $('puppy[gooddog]').val('no');
+        $('#spanmr').removeClass('selectedsecondmenu');  
+      }
+      var m=$('#puppy_gooddog').val();
+      var jqxhr= $.post('/futureproyectosactions/setg', { main: m, en: 'main' }, function() {
+      })
+      .success(function() {  window.location.href = '/futureproyectosactions/status/'+st+'/resource/'+rs; })
+      .error(function() { alert('problemas en la red, no ha sido posible realizar la actualización'); })
+      .complete(function() { /*alert('complete');*/ }); 
+      jqxhr.complete(function(){ /*alert('second complete');*/ });  
+    });"
+
+ %>
+ 
+
+<%= javascript_tag "$('#pcolab_pcolab').live('click', function() {
+
+      if ($('#pcolab_pcolab:checked').is(':checked')) {	
+        $('#pcolab_pcolab').val('yes');
+        $('pcolab[pcolab]').val('yes');
+        $('#pcolab_pcolab').attr('checked', true);
+        $('#spanpcolab').addClass('selectedsecondmenu');
+      }else{	 	
+        $('#pcolab_pcolab').val('no');	
+        $('#pcolab_pcolab').attr('checked', false);
+        $('pcolab[pcolab]').val('no');
+        $('#spanpcolab').removeClass('selectedsecondmenu');  	
+      }
+      var mpc=$('#pcolab_pcolab').val();
+      var jqxhr= $.post('/futureproyectosactions/setg', { pcolab: mpc , en: 'pcolab' }, function() {
+      })
+      .success(function() { window.location.href = '/futureproyectosactions/status/'+st+'/resource/'+rs;  })
+      .error(function() { /*alert('error');*/ })
+      .complete(function() { /*alert('complete');*/ });
+      jqxhr.complete(function(){ /*alert('second complete');*/ });  
+    });"
+
+ %>
+ 
+
+
+
+<div class="breadCrumbsProjects">
+  <% list_status.each do |k,v| %>
+    <% names= k.name.to_s if !k.name.nil? %>
+    <% names= 'sin_definir' if k.name.nil? %>
+    <span id="span<% names.to_s%>"><% link_to names.to_s ,  '/futureproyectosactions/status/'+names.to_s+"/resource/#{current_user.id}" %></span>
+  <% end %>
+  || <%= check_box("pcolab", "pcolab", {}, "yes", "no") %> <span id="spanpcolab"> <%= '(Participo)'  %>  </span> |
+     <%= check_box("puppy", "gooddog", {}, "yes", "no") %> <span id="spanmr"> <%= '(soy responsable)'  %> </span>|
+     
+</div>
+
+
+
+<%= raw jqgrid("Acciones futuras", "futureproyectoaction", "/futureproyectosactions" , 
+      [
+        { :field => "id", :label => "id" , :hidden => true  },
+        { :field => "title", :label => "title",  :editable => true, :widht => 200, :align => 'center'   },
+        { :field => "mainresource"  ,   :label => "Responsable", :width => 200, :align => 'center',  :editable => true, :edittype => "select",
+                                    :editoptions => { :value => @users  }, :width => "240"  },
+        { :field => "comments", :label => "comentarios", :edittype => "textarea", :editable => false, :width => "500", :height => '400'  , :editoptions => {:rows =>"0",:cols =>"0"} },
+        { :field => "priority", :label => "Prioridad", :editable => true, :width => 80, :align => 'center' , :edittype => "select", 
+                                :subgrid  => true , :editoptions => { :value => @priorityselect  }},
+        { :field => "proyecto_id", :label => "Vinculado a:", :editable => true, :edittype => "select", :subgrid  => false , :align => 'center'  , :editoptions => { :value => list_proa }},
+        { :field => "update_at", :label => "Fecha:" , :formatter => 'date'  , :sorttype => 'date' ,:align => 'center'  ,  :editable => false}  
+      ],
+    { 
+      :selection_handler => "sueltatiny",  :autowidth=>true, :height => @maxsizetotalentriesfutureproyectosaction.to_s, :navButtonAdd => 'nuevoboton', :delete => true, :add => true, 
+      :edit => true, :inline_edit => false, :edit_url => "/futureproyectosactions/post_data_futureproyectosactions"   , 
+      :master_details => true, :details_url => "/futureproyectosactions/getresources" , :details_caption => "Recursos" , :direct_selection => true, 
+      :subgrid => { :url => "/futureproyectosactions/getresources",  
+                    :edit => true,
+                    :autowidth=>true,  :add => true,  :inline_edit => true, :delete => true, :edit_url => "/futureproyectosactions/editresources",  
+                    :columns => [
+                                  { :field => "id", :label => "ID", :width => 35, :resizable => false, :hidden => true  },
+                                  { :field => "resources", :label => "Recurso", :width => 500, :align => 'center',  :editable => true, :edittype => "select", :editoptions => { :value => @users  } }
+                                ]
+                  }
+    }
+        
+    )
+%>
+
+
+<div id="proyecto_contain" style="display:none;  background-color:red; widht:500px; height:600px; opacity:0.5;" >
+  <span style="float:left">
+    <span style="float:right;" onClick='$("#proyecto_contain").attr("style","display:none")' >XCerrar</span>
+    <input type="hidden" name="idnow" id="idnow" value="0">
+    <table id="main_table" style="width:100%;">
+      <tbody>
+        <tr><th>
+              <div style="width: 1268px;" id="gview_proyecto" class="ui-jqgrid-view">
+                <div class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix">
+                  <a style="right: 0px;" class="ui-jqgrid-titlebar-close HeaderButton" role="link" href="javascript:void(0)">
+                  <span class="ui-icon ui-icon-circle-triangle-n"></span></a><span class="ui-jqgrid-title">Listado de proyectos</span>
+                </div>
+            </th>
+        </tr>
+      </tbody>
+      <tbody>		
+        <tr><th colspan="3" style="columnMinWidth:3;"> 
+              <textarea  class="FormElement" multiline="true" role="textbox" rows="2" cols="20" name="comments" id="comments"></textarea>
+             </th><th</th><th>
+            </th>
+        </tr>         
+      </tbody>
+
+    </table>
+  </span>
+  <span style="float:left; background-color: green; ">
+    <div id="imgcontain" style="position:relative; top:0px; "></div>
+  </span>			
+</div>		
+<script>
+
+tinyMCE.init({
+	       mode    : "textareas",
+               plugins : "tablegrid,autolink,lists,spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media" + 
+                         ",searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",    
+               width   : "100%", 
+               theme   : "advanced",
+               theme_advanced_buttons1 : "msave,imageselect,|,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect," +
+					 "formatselect,fontselect,fontsizeselect",
+               theme_advanced_buttons2 : "tablegrid,|,row_props,cell_props,|,row_before,row_after,delete_row,|,col_before,col_after,delete_col,|,split_cells,merge_cells,|" +
+                                         ",hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,print,|,ltr,rtl,|,fullscreen",
+	       theme_advanced_buttons3 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|"+
+                                         ",link,unlink,anchor,image,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
+	       theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops,spellchecker,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking," + 
+                                         "template,blockquote,pagebreak,|,insertfile,insertimage",
+               height  : "600",
+               file_browser_callback   : 'myFileBrowser',
+               dialog_type : "modal",
+
+               setup : function(ed) {	
+  		                      ed.onContextMenu.add(function(ed, e) {     	
+                                    }), 
+ 	
+   	       // Register example button
+               ed.addButton('msave', {
+                                       title : 'Guardar',
+                                       image : 'http://<%=request.host_with_port%>/javascripts/tiny_mce/plugins/msave/img/msave.gif',
+                                       dialog_type : "modal",
+                                       onclick : function() {
+         	                                              var answer=true;
+                                                              if (answer){
+            		                                                   ed.windowManager.confirm('El comentario, va a cambiar. ¿Estás seguro? ' , function(s) {
+					                                     if (s) tinyMCE.activeEditor.dom.addClass(tinyMCE.activeEditor.dom.select('table'), 'tinypersonalclasstable');
+						                             var content = tinyMCE.get('comments').getContent();
+						  
+						                             $.post("<%= udateFromTinymce_futureproyectosactions_path %>",
+                                                                               { id: $('#idnow').val(), comments: content  },
+
+                                                                               function(data){
+                                                                                 var idn= $('#idnow').val();
+                                                                                 $("#futureproyectoaction").trigger("reloadGrid");             
+                                                                                 jQuery('#proyecto #'+idn).attr("style","background-color:red");
+                                                                                 $("#proyecto_contain").attr("style","display:none");
+                                                                                 $("#imgcontain").attr("style","display:block;");
+                                                                               }
+                                                                             );
+						                           });
+  	
+                                                              }
+        
+                                                 }
+               })
+
+              ed.addButton('imageselect', {
+                                            title : 'imageselect.desc',
+                                            image : 'http://<%=request.host_with_port%>/images/tinymce/icons/realmedia.gif',
+                                            onclick : function() {
+         	                                                   var answer=true;
+		                                                   var content = $("#imgcontain");
+		                                                   var contenthtml = $("#imgcontain").html();
+                                                                   $("#imgcontain").empty();
+                                                                   content = $("<div></div>").attr("id", "img_content");
+		                                                   $("#imgcontain").after(content);
+	
+
+                                                        <% pictures_all.each do |picture| %>
+
+                                                        <%   e=  'setImg('+"'".to_s+picture.file.to_s+"'".to_s+')'   %>
+
+                                                        var sr='';
+                                                        sr='http://'+'<%=request.host_with_port.to_s+picture.file.to_s %>';
+
+                                                        $('#imgcontain').prepend('<img id="img<%= picture.id.to_s %>" style="" src="" onClick=""   />');
+
+                                                        $("#imgcontain #img<%=picture.id.to_s %>").attr("src",sr);
+                                                        $("#imgcontain #img<%=picture.id.to_s %>").attr("onClick","setImg("+"'"+sr+"'"+")");
+                                                        $("#imgcontain #img<%=picture.id.to_s %>").attr("style","width:120px; height:200px");
+
+                                                        <%   image_tag(picture.file_url(:thumb)) if picture.file.present? %>
+
+                                                        <%   end %>      
+         
+                                                      }
+              });
+
+            }
+    
+    
+});
+
+
+function sueltatiny(id){
+  var ap=new Array(); 
+
+  <%= escape_javascript("ap=1") %> 
+
+  var to='';
+  var sal='';
+  var salTitle='';
+  var tableRow = $('#futureproyectoaction tr').filter(function() {	
+    if ($(this).attr("id")==id){		
+      var p = $(this);
+      to = p.offset();
+      sal=$(this).find("td").eq(4).html();
+      salTitle=$(this).find("td").eq(2).html();
+      $('#idnow').val(id);
+
+      return false;
+    } 
+  }).closest("tr");
+
+ 
+  tinyMCE.activeEditor.setContent(sal);
+
+  $(".ui-jqgrid-title").html('Modo Edición:      '+salTitle);
+
+  $("#proyecto_contain").attr("style","display:block; position:absolute;  top:" + (to.top-50)  +"px;");
+		
+}
+
+
+function myFileBrowser (field_name, url, type, win) {
+  var cmsURL = window.location.pathname;     
+  var searchString = window.location.search; 
+  if (searchString.length < 1) {
+    searchString = "?";
+  }
+
+  tinyMCE.openWindow({
+    file : cmsURL + searchString + "&type=" + type, 
+    title : "File Browser",
+    width : 420,  
+    height : 400,
+    close_previous : "no"
+  }, {
+    window : win,
+    input : field_name,
+    resizable : "yes",
+    inline : "yes",  
+    editor_id : tinyMCE.selectedInstance.editorId
+  });
+    return false;
+  }
+  
+</script>
+
+<script>
+  function setImg(src){		
+    tinyMCE.activeEditor.setContent('<img   src="'+src+'">'+tinyMCE.activeEditor.getContent());
+  }
+</script>
+

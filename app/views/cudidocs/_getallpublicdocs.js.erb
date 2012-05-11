@@ -1,0 +1,42 @@
+
+  $('#documentospublicos').html('<h2>Documentos públicos</h2>');
+  
+  var tb="<div id='checkgroupalldocs'> <table><tr><td></td><td></td></tr>";
+
+  var ck='';
+  var ckp='';
+  var st='';
+
+  <%  alldoc.each do |v| %>
+    var ve='<%= v.public.to_s %>';
+    if (!ve) ve='false';
+    if ( ve  =='checked'){
+      //ckp=   '<td><%= check_box_tag 'ckp_'+v.id.to_s , v.id.to_s, true, :class => 'ckeckdoc' %></td><td>' + "</td>";
+    }else{
+      //ckp=   '<td><%= check_box_tag 'ckp_'+v.id.to_s , v.id.to_s, false, :class => 'ckeckdoc' %></td><td>' + "</td>";
+    }
+
+    ck= ck +  '<tr><td></td>' +  ckp +  '<td>' + "<span class='namefile'  onclick='gdoc(<%= v.id.to_s %> );' id='" + <%= v.id.to_s %> + "'><a>" + <%= "'".to_s + v.namefile.to_s + "'".to_s %>   + '</a>   by     <%= v.user_id.to_s %>'   +  "</span></td>";
+    //st =  ck  + st ;
+  <% end %>
+     
+  var lg= '</table>';
+/*
+ var sc= '<script> function erasedoc(){ alert("llega a erasedoc"); var myA=new Array(); var c=0; $("#checkgroup :input:not(:checked)").each(function() { myA[c]=$(this).val();  c= c+1;  });';
+ sc = sc + ' var jqxhr = $.post("cudidocs/erasedocs" ,"myA[]=" + myA ,  function(d) {  }) .success(function() {}).error(function() {}).complete(function() { })};';   
+ 
+ sc = sc + 'function askif(){ var app=""; app= apprise("Nombre de fichero",{"input":true}, function(r){ if(r){}});} ';
+
+sc = sc + '</script>';
+
+
+ var scp= '<script> function publicdoc(){ alert("llega a publicdoc"); var myA=new Array(); var c=0; $("#checkgroup :input:not(:checked)").each(function() { myA[c]=$(this).val();  c= c+1;  });';
+ scp = scp + ' var jqxhr = $.post("cudidocs/publicdocs" ,"myA[]=" + myA ,  function(d) {  }) .success(function() {}).error(function() {}).complete(function() { })};';
+
+ scp = scp + 'function askif(){ var app=""; app= apprise("Nombre de fichero",{"input":true}, function(r){ if(r){}});} ';
+
+ scp = scp + '</script>';
+*/
+ $('#documentospublicos').append(tb +  ck   + lg  );
+ //$('#misdocumentos').append('<script> function erasedoc(){ alert("llega a erasedoc"); $("#checkgroup :input:not(:checked)").each(function() { alert("hola mundo");  });}</script>');
+

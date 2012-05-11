@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  token: MyString
+  description: MyText
+  souldbesend: MyString
+  bettween: MyString
+  begin: MyString
+
+two:
+  token: MyString
+  description: MyText
+  souldbesend: MyString
+  bettween: MyString
+  begin: MyString

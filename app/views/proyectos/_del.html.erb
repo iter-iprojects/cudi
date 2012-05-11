@@ -1,0 +1,29 @@
+<table class="proyectosTable">
+
+  <tr>
+        <th id="numero" title="Numero">N</th>
+        <th id="proyecto" title="Proyecto">Proyecto</th>
+      
+    <th id="finish" title="Fecha">fecha</th>
+    <th id="comentarios" title="Comentarios">Comentarios</th>
+	<th id="edit">Editar</th>
+
+   <!-- <th id="Edit">....</th>
+    <th id="Destroy">....</th>-->
+  </tr>
+
+<% $c=0 %>
+<% @proyectos.each do |proyecto| %>
+<% $c=$c+1 %>
+<% $class="impar" %>
+<% $class="par"   if ($c%2==0)  %>
+  <tr class=<%= $class %> >
+        <td><%=proyecto.id %></td><td><%=proyecto.title %></td><td><%= proyecto.finish %></td><td><%= proyecto.comments %></td><td>
+    <span><%= link_to 'Show', proyecto %></span>
+    <span><%= link_to 'Edit', edit_proyecto_path(proyecto) %></span>
+    <span><%= link_to 'Destroy', proyecto, :confirm => 'Are you sure?', :method => :delete %></span>
+    </td>
+  </tr>
+<% end %>
+</table>
+

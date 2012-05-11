@@ -1,0 +1,407 @@
+
+
+
+
+<script>
+function handleSelection(a){
+alert(a);
+
+} 
+</script>
+
+<script>
+
+</script>
+
+<script>
+	<%= 'function getSta(){ var sta = new Array();'.to_s %> 
+	<% list_status.each do |d| %>
+
+<%=  'sta['.to_s+d.id.to_s +  "]= '".to_s+d.name.to_s+"';".to_s %>
+
+<% end %> 
+  <%= 'return sta;}'.to_s %>
+</script>
+
+
+ <%= javascript_tag "var vpc='"+session[:pc].to_s+"'" %>
+
+<%= javascript_tag "var v='"+session[:mr].to_s+"'" %>
+
+<%= javascript_tag "var st='"+session[:st].to_s+"'" %>
+
+<%= javascript_tag "var rs='"+session[:rs].to_s+"'" %>
+
+<%= javascript_tag "$(document).ready(function () {
+
+    sta=getSta();
+
+     $('#span'+sta[st]).addClass('selectedsecondmenu');
+ 
+    if (v=='yes')  $('#puppy_gooddog').attr('checked', true);
+    if (v=='no')  $('#puppy_gooddog').attr('checked', false);  
+	if (v=='yes') $('#spanmr').addClass('selectedsecondmenu');
+    if (v=='no')  $('#spanmr').removeClass('selectedsecondmenu'); 	
+    		
+    if (vpc=='yes')  $('#pcolab_pcolab').attr('checked', true);
+    if (vpc=='no')  $('#pcolab_pcolab').attr('checked', false); 
+    if (vpc=='yes') $('#spanpcolab').addClass('selectedsecondmenu'); 
+    if (vpc=='no') $('#spanpcolab').removeClass('selectedsecondmenu');	
+   	 		
+});"
+%>
+
+<%= javascript_tag "$('#puppy_gooddog').live('click', function() {
+
+  if ($('##puppy_gooddog:checked').is(':checked')) {	
+  	 $('#puppy_gooddog').val('yes');
+  	 $('puppy[gooddog]').val('yes');
+  	 $('span #puppy_gooddog').attr('checked', true);
+  	 $('#spanmr').addClass('selectedsecondmenu');
+  	 
+     /*window.location.href = '/proyectos/status/'+st+'/resource/'+rs;*/ 
+  	 
+
+  }else{	 	
+     $('#puppy_gooddog').val('no');	
+  	 $('#puppy_gooddog').attr('checked', false);
+  	 $('puppy[gooddog]').val('no');
+  	 $('#spanmr').removeClass('selectedsecondmenu'); 
+  	   /*window.location.href = '/proyectos/status/'+st+'/resource/'+rs;*/ 
+  }
+     var m=$('#puppy_gooddog').val();
+    	 var jqxhr= $.post('/proyectos/setg', { main: m, en: 'main' }, function() {
+      /*alert('success');*/
+    })
+    .success(function() {  window.location.href = '/proyectos/status/'+st+'/resource/'+rs; })
+    .error(function() { alert('problemas en la red, no ha sido posible realizar la actualización'); })
+    .complete(function() { /*alert('complete');*/ });
+    // perform other work here ...
+    // Set another completion function for the request above
+    jqxhr.complete(function(){ /*alert('second complete');*/ });  
+ });"
+
+ %>
+ 
+
+ 
+ <%= javascript_tag "$('#pcolab_pcolab').live('click', function() {
+
+  if ($('#pcolab_pcolab:checked').is(':checked')) {	
+  	 $('#pcolab_pcolab').val('yes');
+  	 $('pcolab[pcolab]').val('yes');
+  	 $('#pcolab_pcolab').attr('checked', true);
+  	 $('#spanpcolab').addClass('selectedsecondmenu');
+  	 /*window.location.href = '/proyectos/status/'+st+'/resource/'+rs;*/ 
+
+  }else{	 	
+     $('#pcolab_pcolab').val('no');	
+  	 $('#pcolab_pcolab').attr('checked', false);
+  	 $('pcolab[pcolab]').val('no');
+  	 $('#spanpcolab').removeClass('selectedsecondmenu');
+  	   /*window.location.href = '/proyectos/status/'+st+'/resource/'+rs;*/ 
+  	
+  }
+     var mpc=$('#pcolab_pcolab').val();
+     var jqxhr= $.post('/proyectos/setg', { pcolab: mpc , en: 'pcolab' }, function() {
+      /*alert('success');*/
+    })
+    .success(function() { window.location.href = '/proyectos/status/'+st+'/resource/'+rs;  })
+    .error(function() { /*alert('error');*/ })
+    .complete(function() { /*alert('complete');*/ });
+    // perform other work here ...
+    // Set another completion function for the request above
+    jqxhr.complete(function(){ /*alert('second complete');*/ });  
+ });"
+
+ %>
+ 
+
+
+
+
+
+
+
+<div class="breadCrumbsProjects">
+	 <% list_status.each do |k,v| %>
+	 <% names= k.name.to_s if !k.name.nil? %>
+	 <% namesid= k.id.to_s if !k.id.nil? %>
+	 <% names= 'sin_definir' if k.name.nil? %>
+ <span id="span<%=names.to_s%>"><%= link_to names.to_s ,  '/proyectos/status/'+namesid.to_s+"/resource/#{current_user.id}" %></span>
+     <% end %>
+     
+     || <%= check_box("pcolab", "pcolab", {}, "yes", "no") %> <span id="spanpcolab"> <%= '(Participo)'  %>  </span> |
+     <%= check_box("puppy", "gooddog", {}, "yes", "no") %> <span id="spanmr"> <%= '(soy responsable)'  %> </span>|
+     
+</div>
+
+<div id="jqgrid_contain">
+	
+
+
+<%=  raw jqgrid("Listado de proyectos", "proyecto", "/proyectos" , 
+
+[
+
+  { :field => "id", :label => "id" , :hidden => true  },
+  { :field => "title", :label => "title",  :editable => true   },
+  { :field => "mainresource"  ,   :label => "Responsable", :width => 500, :align => 'center',  :editable => true, :edittype => "select",
+                  :editoptions => { :value => user_all_h  }  },
+  { :field => "status", :label => "status", :width => 150, :editable => true, :edittype => "select", :editoptions => { :value => @status  }  },
+  { :field => "comments", :label => "comentarios", :type => "textarea", :edittype => "textarea", :editable => true, :width => "500", :height => '400' },
+  { :field => "averange", :label => "averange", :editable => true },
+  { :field => "priority", :label => "Prioridad", :editable => true, :edittype => "select", :subgrid  => true , :editoptions => { :value => @priorityselect  }} 
+
+ ],
+
+
+        { 
+             :selection_handler => "sueltatiny" ,  :height => '800' ,  :autowidth=>true, :autoheight=>true,  :navButtonAdd => 'nuevoboton', :search => true, :add => true, :edit => true, :inline_edit => false, :edit_url => "/proyectos/post_data"   , :master_details => true, :details_url => "/proyectos/getresources" , :details_caption => "Recursos" ,
+                 #  hace una llamada a una funcion js y le pasa el id de la columna es util para hacer eventos :selection_handler => "handleSelection",  	
+		:direct_selection => true, 
+                :subgrid => { :url => "/proyectos/getresources",  
+                              :edit => true,
+                              :autowidth=>true,  :add => true,  :inline_edit => true, :delete => true, :edit_url => "/proyectos/editresources",  
+                                          :columns => [
+                                                { :field => "id", :label => "ID", :width => 35, :resizable => false, :hidden => true  },
+                                                { :field => "resources", :label => "Recurso", :width => 500, :align => 'center',  :editable => true, :edittype => "select", :editoptions => { :value => @users  } }
+                                          ]
+                                        }
+        }
+
+)
+
+%>
+
+</div><!-- jqgridcontain -->
+
+
+<script>
+
+
+<div id="proyecto_contain" style="display:none; top:30px; background-color:red; widht:500px; height:600px; position:absolute;" >
+	<span style="float:right;" onClick='$("#proyecto_contain").attr("style","display:none")' >XCerrar</span>
+	<input type="hidden" name="idnow" id="idnow" value="0">
+	<table style="width:100%;">
+				<tbody>
+			<tr><th><div style="width: 1268px;" id="gview_proyecto" class="ui-jqgrid-view"><div class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix"><a style="right: 0px;" class="ui-jqgrid-titlebar-close HeaderButton" role="link" href="javascript:void(0)"><span class="ui-icon ui-icon-circle-triangle-n"></span></a><span class="ui-jqgrid-title">Listado de proyectos</span></div></th></tr>
+		</tbody>
+		<tbody>
+		
+		    <tr><th colspan="3" style="columnMinWidth:3;"> <textarea  class="FormElement" multiline="true" role="textbox" rows="2" cols="20" name="comments" id="comments"></textarea>	</th><th</th><th></th></tr>         
+		</tbody>
+
+	</table>
+	
+</div>		
+
+
+
+<script>
+
+tinyMCE.init({
+    mode : "textareas",
+    plugins : "autolink,lists,spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
+    width : "100%", 
+    theme : "advanced",
+    height : "600",
+    file_browser_callback : 'myFileBrowser',
+
+    
+    theme_advanced_buttons1 : "example,imageselect,.....",
+      dialog_type : "modal",
+ 
+   setup : function(ed) {
+
+      ed.addButton('example', {
+         title : 'Guardar.desc',
+         image : 'javascripts/tiny_mce/plugins/example/img/example.gif',
+         dialog_type : "modal",
+         onclick : function() {
+         	var answer=true;
+
+            if (answer){
+            		ed.windowManager.confirm('El comentario, va a cambiar. ¿Estás seguro? ' , function(s) {
+							if (s)
+							 	var content = tinyMCE.get('comments').getContent();
+							 	
+				
+				$.post("<%= udateFromTinymce_proyectos_path %>"  ,
+                 { id: $('#idnow').val(), comments: content  },
+                    function(data){
+                     
+                      var idn= $('#idnow').val();
+                      $("#proyecto").trigger("reloadGrid"); 
+                     
+                      //jQuery('#proyecto').jqGrid('setSelection',idn);
+                      jQuery('#proyecto #'+idn).attr("style","background-color:red");
+                      $("#proyecto_contain").attr("style","display:none");
+                      $("#imgcontain").attr("style","display:none");
+
+                 }
+                );
+						});
+  	
+            }
+            //ed.windowManager.alert('Hello world!! Selection: ' + ed.selection.getContent({format : 'text'}));
+         }
+      });
+ //////empiezo y 
+       ed.addButton('imageselect', {
+         title : 'imageselect.desc',
+         image : 'javascripts/tiny_mce/plugins/example/img/imageselect.gif',
+         //dialog_type : "modal",
+         onclick : function() {
+         	var answer=true;
+         	 //id div #mce_33_middle id frame #mce_33_ifr
+
+
+
+<% pictures_all.each do |picture| %>
+
+<% e=  'setImg('+"'".to_s+picture.file.to_s+"'".to_s+')'   %>
+
+
+
+$('#imgcontain').prepend('<img id="<%= picture.id.to_s %>" style="" src="" onClick=""   />');
+
+$("#imgcontain  #"+<%=picture.id.to_s %>).attr("src","<%= picture.file.to_s %>");
+$("#imgcontain  #"+<%=picture.id.to_s %>).attr("onClick","setImg('<%= picture.file.to_s %>')");
+$("#imgcontain  #"+<%=picture.id.to_s %>).attr("style","width:120px; height:200px");
+
+
+
+
+<% image_tag(picture.file_url(:thumb)) if picture.file.present? %>
+<% end %>
+
+
+
+jQuery('<a/>', {
+    id: 'foo',
+    href: 'http://google.com',
+    title: 'Become a Googler',
+    rel: 'external',
+    text: 'Go to Google!'
+}).appendTo('#mySelector');
+
+
+
+       
+         
+         }
+      });
+ /////////termino     
+   }
+
+    
+    
+});
+
+
+ function sueltatiny(id){
+ 	alert('llega a suta');
+var ap=new Array(); 
+
+<%= escape_javascript("ap=1") %> 
+
+
+var sal='';
+var salTitle='';
+var tableRow = $('table tr').filter(function() {	
+	if  ($(this).attr("id")==id){
+	sal=$(this).find("td").eq(5).html();
+	salTitle=$(this).find("td").eq(2).html();
+	$('#idnow').val(id);
+
+	return false;
+	} 
+    }).closest("tr");
+
+ 
+   tinyMCE.activeEditor.setContent(sal);
+   $(".ui-jqgrid-title").html('Modo Edición:      '+salTitle);
+   
+
+   $("#proyecto_contain").attr("style","display:block; position:absolute; top:200px;");
+
+		
+}
+
+
+  function myFileBrowser (field_name, url, type, win) {
+
+
+    var cmsURL = window.location.pathname;     // your URL could look like "/scripts/my_file_browser.php"
+    var searchString = window.location.search; // possible parameters
+    if (searchString.length < 1) {
+        // add "?" to the URL to include parameters (in other words: create a search string because there wasn't one before)
+        searchString = "?";
+    }
+
+
+
+    tinyMCE.openWindow({
+        file : cmsURL + searchString + "&type=" + type, // PHP session ID is now included if there is one at all
+        title : "File Browser",
+        width : 420,  // Your dimensions may differ - toy around with them!
+        height : 400,
+        close_previous : "no"
+    }, {
+        window : win,
+        input : field_name,
+        resizable : "yes",
+        inline : "yes",  // This parameter only has an effect if you use the inlinepopups plugin!
+        editor_id : tinyMCE.selectedInstance.editorId
+    });
+    return false;
+  }
+
+
+  
+</script>
+
+
+
+
+<script>
+
+$("#mce_37 #mce_37_ifr").live({
+  click: function() {
+  
+    $(this).after("<p>Another paragraph!</p>");
+  },
+  mouseover: function() {
+    $(this).addClass("over");
+  },
+  mouseout: function() {
+    $(this).removeClass("over");
+  }
+});
+
+</script>
+
+
+
+
+
+
+
+<div id="imgcontain" ></div>
+
+<script>
+	function setImg(src){
+
+		
+		tinyMCE.activeEditor.setContent('<img   src=http://localhost:3000'+src+'>'+tinyMCE.activeEditor.getContent());
+	}
+	
+</script>
+
+
+
+
+
+
+

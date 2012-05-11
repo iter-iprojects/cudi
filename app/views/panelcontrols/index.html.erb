@@ -1,0 +1,151 @@
+
+<%= javascript_tag "function showfiles(){ 
+ 		      var jqxhr = $.post(\"listpdffiles\" ,  function(d) {  
+                                  })
+                      .success(function() {
+                      })
+                      .error(function() {
+                      })
+                      .complete(function() { 
+                      });    	
+   		    }
+   		    function cerrarfullscreen(){ $('#fullscreenlistpdffiles').remove()};
+   		    function showpdf(pd){
+   		      $.download('showpdf','fn='+pd+'&format=pdf');
+   		      cerrarlistpdffiles();
+                    }   			   				"
+   	%>		
+
+<div><%= @configurationerror %></div>
+
+<%content_for :panelcontrols do%>
+<% end  %>
+
+
+<%  war='' %>
+
+
+<fieldset id="panelControl">
+  <legend>Panel de Control</legend>	
+  <div id="laterali"> 
+    <%= form_tag("panelcontrols/updateroles", :method => "put") do %>	
+      <fieldset id="asignaRoles">	
+        <legend>Gestión de Usuarios</legend>
+	<label for="usuario"  id="labelusuario">Selecciona Usuario/s:</label>
+
+	<div id="GestionUsuarios">
+	  <%= collection_select(:user , :id, getalluserroles , :id, :email , options ={}, :class =>"userselect", :multiple => true) %>
+        </div> 
+	<div id="seleccionarol">
+	  <label for="roles"> Rol: </label>
+	    <%= collection_select(:rol, :id, @roles, :id, :name, options ={:prompt => "-Selecciona rol"}, :class =>"rolesselect") %>
+	</div> 
+	<span> <%= submit_tag 'Cambiar Rol' %></span>
+	<span><%= link_to 'Gestión de roles', roles_path %> 
+          <span id="arrow">&#9658;</span> 
+        </span>
+      </fieldset>  		         
+    <% end %>
+  </div>
+
+  <div id="laterald">
+    <%= form_tag(generate_document_panelcontrols_path, :method => "post", :remote=> true) do || %>
+      <fieldset class="PdfGenr" >
+        <legend> Documentos </legend>		
+        <label for="documento" >Descripción:</label>
+        <div>
+          <%= text_area(:changelog, :text, :size => "30x4") %>
+        </div>
+        <div>
+          <p class="generatePdf"> 
+            <span id="esperagenerardocumento" class="invisible"> <%= image_tag("espera.gif", :size => "300x16", :options => {:id => "esperaimg"}) %>  </span>
+            <%= submit_tag  'Generar el informe:' +  (get_last_doc_version.to_i + 1).to_s , :class => 'botonf', 
+                             :confirm => "Va a generar un nuevo documento, en un proceso irreversible. ¿Está seguro?", :options => {:style=>"display:block;"} %>  
+          </p> 
+        </div>
+        
+        <p><em>* Es obligatorio a&ntilde;adir una nota para esta versión</em></p>
+      </fieldset>
+    <% end %>
+  </div>
+
+  <div id="lateralbi"> 	
+    <aside class="AdmControls">		
+      <fieldset class="DocumentoVersion">	
+        <legend> Otros </legend>
+	<p></p>	
+	<%= flash[:notice] %>
+	<div id="versionactual"><h1>Documento versión: <%= get_last_doc_version.to_s %></h1></div>	
+	<span id="espera" style="display:none;"> <%= image_tag("espera.gif", :size => "300x16", :options => {:id => "esperaimg"}) %>  </span>
+	<div  id="enlacescontain">			  
+	  <div id="enlace1" style="display:block;">
+	    <%= link_to "Ver documento temporal (pendiente de generar)  ", "pdf/create_pdf/salidagenerica.pdf"  if FileTest.exists?("#{Rails.root}/public/pdf/create_pdf/salidagenerica.pdf") %> 
+            <span id="arrow">&#9658;</span>
+	  </div>
+	  <div id="enlace2">
+	    <%= link_to "Actualizar documento temporal", create_pdf_path , :remote => true   %> <span id="arrow">&#9658;</span>
+	  </div>
+
+          <div id="enlace3">			  	
+	    <%= link_to "Enviar el último informe a todos los usuarios", sendpdftousers_path, :remote => true 	%> <span id="arrow">&#9658;</span>
+	  </div>
+	  <div id="enlace4">
+	    <span id="fa">Confirmaciones (pdf)</span> <span id="arrow">&#9658;</span>	
+	      <% link_to "Informe, Generar y enviar del #{current_user['email']}, las confirmaciones del documento ", "/inlinepdf/users_confirm/#{get_last_doc_version}", 
+                          :id => "confirmations", :class => "confirm" , :remote => true, :confirm => "Vas a enviar, este documento a todos los usuarios, ¿Estás seguro?"   %>
+	  </div>    
+	  <div id="enlace5">
+	    <%= link_to 'Gestión de Prioridades', priorities_path %> <span id="arrow">&#9658;</span> 
+	  </div>   
+	  <div id="enlace6">	
+	    <%= link_to 'Estados que pueden tener los proyectos ' + war , proyectostatuses_path %> <span id="arrow">&#9658;</span> 
+	  </div>
+	  <div id="enlace7">
+	    <span id="fa">Hitóricos (pdf)</span> <span id="arrow">&#9658;</span> 
+	  </div>
+	</div><!-- enlacescontain -->
+      </fieldset>     
+    </aside>
+  </div>
+</div>
+</fieldset>
+
+
+  <script type="text/javascript">
+    $('#enlace2').click(function() {
+      $('#enlacescontain').attr("style","display:none;");
+      $('#espera').attr("style","display:block;");
+    });
+		
+    $('#enlace3').click(function() {		
+      var x = 'Vas a enviar este informe a todos los usuarios, ¿Estás seguro?';	         	
+      if (confirm(x)){ 
+        $('#espera').attr("style","display:block;");
+        $('#enlacescontain').attr("style","display:none;");			
+      }
+      else
+      {
+        $('#espera').attr("style","display:none;");
+	return null;
+      }	
+    });		
+
+    $('.botonf').click(function() {			 
+      $('.botonf').attr("value","<%= get_last_doc_version %>"); 
+      $('.botonf').attr("value","<%= 'Generando el informe:' +  (get_last_doc_version.to_i + 1).to_s %>");
+    });
+
+    $('#enlace4').click(function() {						
+      $('#enlacescontain').attr("style","display:none;");
+      $('#espera').attr("style","display:block;");
+      var pd="confirmaciones";
+      $.download('/inlinepdf/users_confirm','fn='+pd+'&format=pdf'); 
+      $('#espera').attr("style","display:none;");
+      $('#enlacescontain').attr("style","display:block;");   		       		    
+    });
+		
+    $('#enlace7').click(function() {	
+      showfiles();
+    });	
+				 
+  </script>

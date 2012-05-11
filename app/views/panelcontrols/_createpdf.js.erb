@@ -1,0 +1,6 @@
+
+  $('#enlacescontain').attr("style","display:block;");
+  $('#espera').attr("style","display:none;");	
+  $('#esperagenerardocumento').attr("style","display:none;");
+  $('.botonf').attr("value","<%= 'Generar el siguiente:'.to_s  +  (get_last_doc_version.to_i + 1).to_s %>");
+  $('#versionactual').html('<h1>La versión actual: es ' + <%= get_last_doc_version.to_s %> + '</h1>');

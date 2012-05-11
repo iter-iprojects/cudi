@@ -1,0 +1,7 @@
+input.medium_input, select.medium_input {
+	width: 180px;
+}
+
+input.small_input, select.small_input {
+	width: 80px;
+}

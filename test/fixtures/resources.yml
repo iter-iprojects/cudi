@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  proyectoid: MyString
+  resource: MyString
+  controller: MyString
+
+two:
+  proyectoid: MyString
+  resource: MyString
+  controller: MyString

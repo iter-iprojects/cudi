@@ -1,0 +1,67 @@
+var nf='<%= shtml.id %>' ;
+
+$("#fid").val(nf);
+
+var s='<%= raw  shtml.contain %>';
+$("#htmlcontain").val(s);
+var fn = '<%= shtml.namefile %>';
+$("#tempfn").val(fn);
+
+
+
+/******está duplicado ***********************/
+
+
+  $('#misdocumentos').html('<h2>Mis documentos</h2>');
+
+
+  var tb="<div id='checkgroup'> <table><tr><td></td><td>Public</td></tr>";
+
+  var ck='';
+  var ckp='';
+  var p='';
+  var st='';
+
+  <%  alldoc.each do |v| %>
+    p='<%= v.public.to_s %>'; 
+    if ( p  == 'checked'){
+      p='checked';
+    }else{
+      p='';
+    }
+
+    ckp=   '<td><%= check_box_tag 'ckp_'+v.id.to_s , v.id.to_s,  ''  , :class => 'ckeckdoc', :checked => p  %></td><td>' + "</td>";
+
+    ck= ck +  '<tr><td><%= check_box_tag 'ck_'+v.id.to_s , v.id.to_s, true, :class => 'ckeckdoc' %></td>' +  ckp +  '<td class="namefile">' + "<span  onclick='gdoc(<%= v.id.to_s %> );' id='" + <%= v.id.to_s %> + "'>" + <%= "'".to_s + v.namefile.to_s + "'".to_s %>  + "</span></td>";
+    //st =  ck  + st ;
+    
+
+  <% end %>
+
+  var lg= '</table><div><p>Con los elementos marcados:</p><a  onclick=erasedoc()' + ' > Borrar </a><a  onclick=publicdoc()' + ' > Hacer/no hacer público</a></div>';
+ var sc= '<script> function erasedoc(){  var myA=new Array(); var c=0; $("#checkgroup :input:not(:checked)").each(function() { myA[c]=$(this).val();  c= c+1;  });';
+ sc = sc + ' var jqxhr = $.post("cudidocs/erasedocs" ,"myA[]=" + myA ,  function(d) {  }) .success(function() {}).error(function() {}).complete(function() { })};';
+
+ sc = sc + 'function askif(){ var app=""; app= apprise("Nombre de fichero",{"input":true}, function(r){ if(r){}});} ';
+
+sc = sc + '</script>';
+
+
+ var scp= '<script> function publicdoc(){  var myA=new Array(); var c=0; $("#checkgroup :input:not(:checked)").each(function() { myA[c]=$(this).val();  c= c+1;  });';
+ scp = scp + ' var jqxhr = $.post("cudidocs/publicdocs" ,"myA[]=" + myA ,  function(d) {  }) .success(function() {}).error(function() {}).complete(function() { })};';
+
+ scp = scp + 'function askif(){ var app=""; app= apprise("Nombre de fichero",{"input":true}, function(r){ if(r){}});} ';
+
+scp = scp + '</script>';
+
+
+
+ $('#misdocumentos').append(tb +  ck   + lg + sc + scp);
+
+
+
+
+
+
+
+

@@ -1,0 +1,23 @@
+<h1>Listing proyectostatuses</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @proyectostatuses.each do |proyectostatus| %>
+  <tr>
+    <td><%= proyectostatus.name %></td>
+    <td><%= link_to 'Show', proyectostatus %></td>
+    <td><%= link_to 'Edit', edit_proyectostatus_path(proyectostatus) %></td>
+    <td><%= link_to 'Destroy', proyectostatus, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Proyectostatus', new_proyectostatus_path %>

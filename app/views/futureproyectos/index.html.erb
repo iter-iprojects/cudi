@@ -1,0 +1,25 @@
+<%=  raw jqgrid("Listado de Acciones Futuras", "futureproyecto", "/futureproyectos",
+       [
+         { :field => "id", :label => "id",  :editable => false, :hidden => true   },
+         { :field => "title", :label => "title",  :editable => true, :width => 200   },
+         { :field => "comments", :label => "comments", :editable => true   }
+       ],
+
+         { 
+           :autowidth=>true, :height => '450', :navButtonAdd => 'nuevoboton', :add => true, :edit => true, :inline_edit => false, 
+           :edit_url => "/futureproyectos/post_data_futureproyectos" , :master_details => true, :details_url => "/futureproyectos/getresources" , :details_caption => "Recursos" ,
+           :direct_selection => true, 
+           :subgrid => { :url => "/futureproyectos/getresources",  
+                         :edit => true,
+                         :autowidth=>true,  :add => true,  :inline_edit => true, :delete => true, :edit_url => "/futureproyectos/editresources",  
+                         :columns => [
+                                       { :field => "id", :label => "ID", :width => 35, :resizable => false, :hidden => true  },
+                                       { :field => "resources", :label => "Recurso", :width => 500, :align => 'center',  :editable => true, :edittype => "select", 
+                                         :editoptions => { :value => @users  } }
+                                     ]
+                       }
+        }
+
+     )
+ 
+  %>

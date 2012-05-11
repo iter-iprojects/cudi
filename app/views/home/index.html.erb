@@ -1,0 +1,103 @@
+<aside id="ActualDoc">
+<span>Documento actual</span>
+
+
+<% debug @estoyensession %>
+
+<span id="version"> Versión: <span class="prominent"><%= @documentnow %></span> </span>
+<span id ="datee">Fecha: <span class="prominent"> <%= @documentdate %></span></span>
+
+<div><%= @msg.to_s  if !@msg.nil? %></div>
+
+</aside>
+
+<script>
+
+  $(document).ready(function(){
+   linet =<%= @hts %>  
+   
+   line2 =<%= @h2s %> 
+   line1 =<%= @h1s %>   
+   line3 =<%= @h3s %> 
+   line4 =<%= @h4s %> 
+   line5 =<%= @h5s %> 
+   
+
+   var s2 =line2
+   var s1 =line1
+   var s3 =line3
+   var s4 =line4
+   var s5 =line5
+   var ticks =  linet
+
+
+
+   plot1 = $.jqplot('chart1', [s1, s2, s3, s4, s5], {
+     seriesDefaults:{  
+       renderer:$.jqplot.BarRenderer,
+       rendererOptions: {fillToZero: true},
+       pointLabels: { show: true }
+     },
+     seriesColors: [ "#e8e8e8", "#c0c0c0", "#a0a0a0", "#888888", "#664223"], 
+     series:[
+<%
+@labels.each do|name,grade| %>
+  <%= "{label: ' #{grade} ' }," %>
+<% end %>
+      /*
+        {label:'Hotel'},
+        {label:'Event Regristration'},
+        {label:'Airfare'},
+        {label:'Airfare'},
+         {label:'Airfare'} 
+   */
+      ],
+      legend: {
+        show: true
+        //placement: 'outsideGrid'
+      },
+      axes: {
+        xaxis: {
+          autoscale: true,
+          renderer: $.jqplot.CategoryAxisRenderer,
+          ticks: ticks
+        },
+        yaxis: {
+          autoscale: true,
+          tickOptions: {formatString: '%d%'},
+          max: 100,
+          min: 0
+
+        }
+      }
+    });
+  });
+
+</script>    
+   <div id="chart1" ></div>
+   
+   <div >
+   	<%= javascript_tag "function showfiles(){ 
+ 			 var jqxhr = $.post(\"listpdffiles\" ,  function(d) {  
+                                   })
+            .success(function() {
+             })
+            .error(function() {
+             })
+            .complete(function() { 
+             });    	
+   				}
+   			function cerrarfullscreen(){ $('#fullscreenlistpdffiles').remove()};
+   			function showpdf(pd){
+   				$.download('showpdf','fn='+pd+'&format=pdf');
+   				cerrarlistpdffiles();
+             }
+   			
+   				"
+   	%>			
+   	
+   	<%=  link_to "Históricos Documentos (pdf)", "#", :onclick => "showfiles();", :id => 'nuevaimagen'  %>
+   
+   </div>
+
+

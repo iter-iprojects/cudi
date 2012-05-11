@@ -1,0 +1,65 @@
+#example_3.example_content {
+  padding: 0px; 
+}
+
+#example_3.example_content .content_wrapper {
+  background-color: #2f3c4c; 
+}
+
+#example_3.example_content .content {
+  float: left;
+  padding: 10px;
+  background-color: #fffad9;
+  min-height: 100px;
+  margin: 10px 10px 10px 0px;
+  width: 540px; 
+}
+
+
+#example_3.example_content #top_navigation {
+  float: left;
+  width: 120%;
+  background-color: #fff; 
+}
+
+#example_3.example_content #top_navigation ul {
+  height: 25px;
+  margin: 0 30px 0 0;
+  padding: 0; 
+}
+
+
+#example_3.example_content #top_navigation ul li {
+  display: inline;
+  list-style-type: none;
+  margin: 0;
+  padding: 0; 
+}
+
+
+#example_3.example_content #top_navigation ul li a {
+  float: left;
+  font-size: 10pt;
+  font-weight: normal;
+  margin: 0;
+  padding: .3% 4%;
+  background-color: #000;
+  border-color: #f4fcf2;
+  border-style: solid;
+  border-width: 1px;
+  color: #ffffff;
+  text-decoration: none; 
+}
+
+
+#example_3.example_content #top_navigation ul li a:hover {
+  background-color: #869023; 
+}
+
+
+#example_3.example_content #top_navigation ul li a.selected {
+  background-color: #fff;
+  color: #000;
+  font-weight: bold; 
+}
+

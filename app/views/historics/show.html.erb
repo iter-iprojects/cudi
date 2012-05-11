@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Proyecto:</b>
+  <%= @historic.proyecto %>
+</p>
+
+<p>
+  <b>Document version:</b>
+  <%= @historic.document_version %>
+</p>
+
+
+<%= link_to 'Edit', edit_historic_path(@historic) %> |
+<%= link_to 'Back', historics_path %>

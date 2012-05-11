@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Confirmation token:</b>
+  <%= @confirmationuser.confirmation_token %>
+</p>
+
+<p>
+  <b>Confirmed at:</b>
+  <%= @confirmationuser.confirmed_at %>
+</p>
+
+<p>
+  <b>Confirmation sent at:</b>
+  <%= @confirmationuser.confirmation_sent_at %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @confirmationuser.user_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_confirmationuser_path(@confirmationuser) %> |
+<%= link_to 'Back', confirmationusers_path %>

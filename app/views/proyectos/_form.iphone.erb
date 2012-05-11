@@ -1,0 +1,89 @@
+<%= javascript_tag '
+  $(function() {
+    $("#callAjax").click(function() {
+      var proyecto_title = $.trim($("#proyecto_title").val());
+      $.ajax({
+        type: "POST",
+        url: "proyectos/mobile_new_proyecto",
+        data: $("#new_proyecto").serialize(),
+        cache: false,
+        dataType: "text",
+        success: onSuccess
+      });                
+    });
+ 
+  $("#resultLog").ajaxError(function(event, request, settings, exception) {
+    $("#resultLog").html("Error Calling: " + settings.url + "<br />HTPP Code: " + request.status);
+  });
+ 
+  function onSuccess(data){
+    $("#resultLog").html("Result: " + data);
+  }
+  });
+
+' %>
+
+<div data-role="content">
+  <div id="resultLog"></div>
+    <%= form_for @proyecto,:url => { :action => "mobile_new_proyecto"  }  , :remote => true   do |f| %>
+      <% if @proyecto.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@proyecto.errors.count, "error") %> prohibited this proyecto from being saved:</h2>
+        <ul>
+          <% @proyecto.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+  <aside data-role="fieldcontain">
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </aside>
+
+   <aside data-role="fieldcontain">
+    <%= f.label :priority %><br />
+    <%= f.text_field :priority, :type => "range", :name => 'proyecto[priority]', :id => 'priority', :value => '0', :min => '0', :max => '3' %>
+  </aside>
+
+  <aside data-role="fieldcontain">
+    <%= f.label :mainresource %><br />
+    <%= select_tag("proyecto[mainresource]", options_for_select(users_all.collect { |ff| [ff.email, ff.id] }, users_all.collect { |fs| fs.id }), 
+     {:multiple=>false, :id => "proyecto_mainresource"})  %>
+  </aside>
+
+  <aside data-role="fieldcontain">
+    <%= f.label :status %><br />
+    <% f.text_field :status,  :value => 'activo'%>
+    <%= select("proyecto", "status", status_all.collect {|p| [ p.name, p.name ] }, :selected =>'activo', :multiple=>false)  %> 
+  </aside>
+
+  <aside data-role="fieldcontain">
+    <%= f.label :comments %><br />
+    <%= f.text_field :comments %>
+  </aside>
+
+  <aside data-role="fieldcontain">
+    <%= f.label :averange %><br />
+    <%= f.text_field :averange, :type => "range", :name => 'proyecto[averange]', :id => 'averange', :value => '0', :min => '0', :max => '100' %>
+  </aside>
+
+<% end %>
+
+  <aside class="ui-btn ui-btn-corner-all ui-shadow ui-btn-up-a" data-theme="a" aria-disabled="false">
+
+  <aside class="ui-btn-inner ui-btn-corner-all">
+
+  <aside class="ui-btn-text" data-theme="a">
+    <%= content_tag :button , :id => 'callAjax', :class => 'file_input'  do %>
+      <% image_tag "icons/tick.png" %>
+        Guardar
+    <% end %>
+  </aside>
+
+  </aside>     
+  </aside>
+  </section>
+</div><!--content-->
+

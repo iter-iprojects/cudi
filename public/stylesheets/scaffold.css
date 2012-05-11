@@ -1,0 +1,156 @@
+pre {
+  background-color: #eee;
+  padding: 10px;
+  font-size: 11px;
+}
+
+a { color: #000; }
+a:visited { color: #666; }
+a:hover { color: #fff; background-color:#000;}
+
+div.field, div.actions {
+  margin-bottom: 10px;
+}
+
+
+#listpublicproyectos {width: 20%; float: left; margin: .5% 5%;}
+#listpublicproyectos a {display: block;}
+
+section#loginbox {width: 25%; margin: .5% auto; }
+section#loginbox h2 {color: #869023;}
+
+#lostNFO {margin: .5% auto;}
+#user_new p input{border: 1px solid #869023;}
+#user_new p input:focus{}
+
+
+
+.field_with_errors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+
+#error_explanation {
+  width: 450px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 0;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+
+#error_explanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: -7px;
+  margin-bottom: 0px;
+  background-color: #c00;
+  color: #fff;
+}
+
+#error_explanation ul li {
+  font-size: 12px;
+  list-style: square;
+}
+
+aside#ActualDoc{ margin:1% 0; padding: 10px 0 0  0;}
+aside#ActualDoc span { color:#444;}
+
+span.prominent {font-weight: bold; color: #362416;}
+
+ul.userInt {float:right; margin: 0; list-style-type: none;}
+ul.userInt li{float: right; margin: 0;}
+ul.userInt li p {text-align:right;}
+
+
+#noticealert {width: 20%; float: right;}
+a.sign_out {font-weight: bold;color: #869023; background: url(../images/logout.png) center right no-repeat transparent; display: block; width: 100px; overflow:visible; padding: 5px 7px; float: right;}
+a.sign_out:hover {background: url(../images/logout.png) center right no-repeat #fff;}
+
+p.alert {background: #DC352B; color: #fff; font-weight: bold; padding: 5px; margin: 5px 0 0 0;}
+p.notice {background: #FeF60d; margin: 5px 0 0 0; padding: 5px;}
+
+.breadCrumbsProjects {margin: 1% 0;}
+.breadCrumbsProjects span {margin: 0 1% 0 0;}
+
+a#s8 {display: block; margin-top: 1%; text-align: center;  width: 15%; }
+
+.selectedsecondmenu{color:#f00; background: #FeF60d;}
+
+#arrow {color:#664223;}
+
+.user_new  label{color: #444;}
+
+input[type="submit"] {display: inline; background: #869023; border: 1px solid #737D15;color: #fff; margin: 15px 0 0 0;}
+input[type="submit"]:hover {}
+
+span#comentt {display: inline; margin-left: 1em; color: #888;}
+
+#panelControl {background: #eee; margin: .5%; border: 1px solid #d0d0d0;}
+#panelControl legend {background: #fff; color: #999; padding: 2px 5px;}
+
+#asignaRoles {display: block; float: left; margin: 2% 1%; padding-left: 2em; }
+#asignaRoles  legend {background: none; color: #36200e; padding: 2px 5px 0 2px; font-weight: bold;}
+#asignaRoles label {display: block; margin: .5em 0 .3em 0; color: #664223;}
+#asignaRoles select{padding: 3px; background: #FFF; max-height: 200px; overflow: auto;}
+
+.gesRole {width: 75%; border-top: 1px dotted #a0a0a0; border-bottom: 1px dotted #a0a0a0;margin-top: 2%; }
+
+.PdfGenr {}
+.PdfGenr legend {background: none !important; color: #36200E !important; padding: 2px 5px 0 2px; font-weight: bold;}
+.PdfGenr em	{color: #869023; font-size: .87em;}
+.PdfGenr textarea {margin: 1% 0; padding: 5px 10px; width: 80%;}
+.PdfGenr textarea:focus {background: #FFF4C7; color: #36200E;}
+
+.generatePdf input[type="submit"] {display: inline;}
+
+.DocumentoVersion {}
+
+l#lateralbi, #laterald, #lateralbi{float: left; width: 30%;}
+
+#Full-Historico  { background-color: #FFFFFF; margin: 10% auto; overflow: hidden;padding: 2%; width: 40%;}
+#Full-Historico h1 {width: 85%; float: left; margin-bottom: .5em;}
+
+a#CerrAr 	{float: right; font-weight: bold; text-transform: uppercase; padding: 5px 15px; background-color: #ccc; -webkit-border-radius: 10px; -moz-border-radius: 10px;border-radius: 10px;}
+a#CerrAr:hover, a#CerrAr:active {background-color: #869023;}
+
+a.showPDF {display: block; margin: 1.5% 0; border-bottom: 1px dotted #ccc;}
+a.showPDF:hover, a.showPDF:active {color: #869023; background: none;}
+   
+#pdful {float: left; width: 85%;}
+
+a#nuevaimagen {background: #b88d46; /* Old browsers */
+background: -moz-radial-gradient(center, ellipse cover, #b88d46 0%, #664223 100%); /* FF3.6+ */
+background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#b88d46), color-stop(100%,#664223)); /* Chrome,Safari4+ */
+background: -webkit-radial-gradient(center, ellipse cover, #b88d46 0%,#664223 100%); /* Chrome10+,Safari5.1+ */
+background: -o-radial-gradient(center, ellipse cover, #b88d46 0%,#664223 100%); /* Opera 12+ */
+background: -ms-radial-gradient(center, ellipse cover, #b88d46 0%,#664223 100%); /* IE10+ */
+background: radial-gradient(center, ellipse cover, #b88d46 0%,#664223 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b88d46', endColorstr='#664223',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */ 
+
+color: #fff; padding: 10px; margin-left: 15px;}
+
+a#nuevaimagen:hover, a#nuevaimagen:active {background: #664223;}
+
+#tablecontent h1{text-align: center; padding: 5px 0; color: #869023;}
+table.listadoImagenes {border: 1px solid #ccc;}
+table.listadoImagenes th {background: #CECECE;border: 1px solid #fff; text-align: center;}
+table.listadoImagenes  tr, table.listadoImagenes td {border: 1px solid #ccc;}
+th.PEE {width: 100px;}
+
+.actions {width: 30%; margin: 5px auto; background: none;}
+.actions a {margin: 2px 20px 2px 0; padding: 2px 20px; color: #664223; background: #D0DC4C; border: 1px solid #869023;}
+.actions a:hover {background: #a90329; /* Old browsers */
+background: -moz-radial-gradient(center, ellipse cover, #a90329 0%, #8f0222 44%, #6d0019 100%); /* FF3.6+ */
+background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#a90329), color-stop(44%,#8f0222), color-stop(100%,#6d0019)); /* Chrome,Safari4+ */
+background: -webkit-radial-gradient(center, ellipse cover, #a90329 0%,#8f0222 44%,#6d0019 100%); /* Chrome10+,Safari5.1+ */
+background: -o-radial-gradient(center, ellipse cover, #a90329 0%,#8f0222 44%,#6d0019 100%); /* Opera 12+ */
+background: -ms-radial-gradient(center, ellipse cover, #a90329 0%,#8f0222 44%,#6d0019 100%); /* IE10+ */
+background: radial-gradient(center, ellipse cover, #a90329 0%,#8f0222 44%,#6d0019 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a90329', endColorstr='#6d0019',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */ color: #fff; border: 1px solid #a90329;}
+
+#bienvenida {margin: 1% auto; text-align: center;}
+#chart1 {margin: 2% 1%;}

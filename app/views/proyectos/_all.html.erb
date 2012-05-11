@@ -1,0 +1,39 @@
+<table class="proyectosTable">
+
+  <tr>
+        <th id="numero" title="Numero">N</th>
+        <th id="proyecto" title="Proyecto">Proyecto</th>
+    <th id="prioridad" title="Prioridad">Prioridad</th>
+    <th id="responsable" title="Responsable">Responsable</th>
+    <th id="recursos" title="Recursos humanos">Recursos</th>
+        <th id="estado" title="Estado" >Estado</th>
+    <th id="comentarios" title="Comentarios">Comentarios</th>
+    <th id="acciones" title="Acciones">Acciones</th>
+        <th id="editar" title="Editar">Editar</th>
+   <!-- <th id="Edit">....</th>
+    <th id="Destroy">....</th>-->
+  </tr>
+
+<% $c=0 %>
+<% @hp= Hash.new() %>
+<% a= [] %>
+<% @proyectos.each do |proyecto| %>
+<% $c=$c+1 %>
+<% $class="impar" %>
+<% $class="par"   if ($c%2==0)  %>
+
+<% $statusclass = proyecto.status %>
+
+<%
+#p = proyecto.resources.gsub('"', "'").to_s if !proyecto.resources.nil?
+%>
+
+<%#   @ud.to_json.each do |has|     end %>
+  <tr class=<%= $class+''+proyecto.status  %>>
+        <td><%=proyecto.id %></td><td><%=proyecto.title %></td><td><%= proyecto.priority %></td><td>responsable</td><td><%= proyecto.resources %></td><td><%= proyecto.status %></td><td><%= proyecto.comments %></td><td><%= proyecto.actions %></td><td>
+    <span><%= link_to 'Show', proyecto %></span>
+    <span><%= link_to 'Edit', edit_proyecto_path(proyecto) %></span>
+    <span><%= link_to 'Destroy', proyecto, :confirm => 'Are you sure?', :method => :delete %></span>
+    </td>
+  </tr>
+<% end %>

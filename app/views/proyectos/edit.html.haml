@@ -1,0 +1,32 @@
+- key = Rails.application.config.session_options[:key]
+
+# Needs yield :scripts in application layout in the bottom of the body
+= content_for :scripts do
+  :javascript
+    var upload_params = {
+      '#{key}' : '#{cookies[key]}',
+      '#{request_forgery_protection_token}' : '#{form_authenticity_token}',
+      '_http_accept': 'application/javascript'
+    };
+    var url = $('input#photo_image').attr('rel');
+    $('input#photo_image').uploadify({
+      'uploader' : '/assets/uploadify.swf',
+      'script' : url,
+      'fileDataName' : 'photo[image]',
+      'fileExt' : '*.png;*.jpg;*.gif',
+      'cancelImg' : '/images/cancel.png',
+      'multi' : true,
+      'scriptData' : upload_params,
+      'auto' : true,
+      'onComplete' : function(e, id, obj, response, data) {
+        $('#photos').append(response);
+      }
+    });
+
+#photos
+  = render :partial => 'photos/photo', :collection => @proyecto.photos
+  - unless @proyecto.new_record?
+    = fields_for Photo.new do |f|
+      = f.file_field :image, :rel => proyecto_photos_path(@proyecto)
+
+    

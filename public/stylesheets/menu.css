@@ -1,0 +1,72 @@
+/*================ Header ===================*/
+
+header { float:left;}
+
+#banner {margin: 0 auto;width: 100%;float: left;}
+#banner figure {float: left;width: 30%; min-width: 220px;}
+#banner figure img {width: 220px;margin:0px 10%;text-align: center;}
+/*________ Banner ____________ */
+
+#banner h1 {font-size: 2.8em; line-height: 1.2; font-family: Forte, Tahoma, Arial, Helvetica, sans-serif; float: left;margin-left:1em;margin-top: .4em; width: 40%;}
+
+#banner h1 a:link, #banner h1 a:visited {color: #000;display: block;font-weight: bold; margin: 0 0 .6em .2em;text-decoration: none; }
+
+#banner h1 a:hover, #banner h1 a:active { background: none;color: #869023;text-shadow: none;}
+#banner h1 strong {font-family: Tahoma, Arial, Helvetica, sans-serif;font-size: 0.38em; font-weight: normal;display: block;}
+
+/*__________ Main Nav____________*/
+
+#banner nav.primary {
+    background: #000;
+    line-height: 1;
+	border-top: 1px solid #000;
+	border-left: 1px solid #000;
+	border-right: 1px solid #000;
+	margin: .9em auto 0 1%;
+    text-align: center;
+    width: 67%;
+	min-width: 300px;
+	float: right;
+	}
+	
+	#banner nav.primary ul {list-style: none; margin: 0 auto; width: 100%;}
+	#banner nav.primary li {float: left;display: inline;overflow:hidden;}
+	
+	#mainnavi li a.active {background: #fff; color: #000 !important; }
+	
+	#banner nav a:link, #banner nav a:visited {color: #fff; display: inline-block; height: 20px;text-decoration: none;padding: 3px 0 4px 0;width: 100%;}
+	#banner nav li a:hover, #banner nav.active li a:link,
+	#banner nav .active li a:visited {background: #869023 !important; text-shadow: none;}
+
+/*------------------------------------------------------------------*/
+
+div.secondary {
+	background: #fff;
+	border-bottom: 1px solid #000;
+	border-left: 1px solid #000;
+	border-right: 1px solid #000;
+    font-size: .98em;
+    height: 27px;
+	float: right;
+    text-align: center;
+    width: 67%;
+	min-width: 300px;
+	display: inline;
+}
+
+div.secondary ul {list-style: none; margin: 0 auto; width: 100%;}
+div.secondary li {float: left; display: inline; margin: 0;vertical-align: baseline;background: #fff;}
+
+div.secondary a:link, div.secondary a:visited {display: inline-block; height: 20px;text-decoration: none;padding:  0px  2em 0px 2em;border-right: 1px solid #869023;margin-top: 5px;}
+div.secondary a:active, div.secondary .active a:link, div.active a:visited {background: #fff;color: #000; text-shadow: none !important;}
+div.secondary li a:hover {background: #000; color: #fff; text-shadow: none;}
+
+/*--------------- Breadcrumbs --------------------*/
+
+#BCdiv {width: 30%; float: left; font-size: .88em;}
+
+/*---------------- /Breadcrumbs  ------------------------*/
+#noticealert{float:right;}
+
+
+

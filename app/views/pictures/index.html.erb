@@ -1,0 +1,27 @@
+
+<h1>Listado de im&aacute;genes</h1>
+
+<table class="listadoImagenes">
+  <tr>
+    <th>T&iacute;tulo</th>
+    <th>Descripci&oacute;n</th>
+    <th>Archivo</th>
+    <th class="PEE"></th>
+  </tr>
+
+<% @pictures.each do |picture| %>
+  <tr>
+    <td><%= picture.title %></td>
+    <td><%= picture.description %></td>
+    <td><%= image_tag(picture.file_url(:thumb)) if picture.file.present? %></td>
+    <td><%= link_to 'Previsualizar', picture %>    <%= link_to 'Editar', edit_picture_path(picture) %>    <%= link_to 'Eliminar', picture, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Nueva imagen',new_picture_path, :id => 'nuevaimagen' %>
+
+
+<p onClick="alert(ed.windowManager.new_variable)"></p>
+
+

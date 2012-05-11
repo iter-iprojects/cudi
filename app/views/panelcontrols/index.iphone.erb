@@ -1,0 +1,40 @@
+
+<div><%= @configurationerror %></div>
+<%    
+  war=''  
+%>
+
+<fieldset>
+  <legend>Panel de Control</legend>	
+  <%= form_tag("panelcontrols/updateroles", :method => "put") do %>	
+    <fieldset>	   
+      <legend>Asignar/cambiar roles</legend>        
+      <label for="usuario">Usuario:</label>
+      <%= collection_select(:email , :id, @users, :id, :email, options ={:prompt => "-Selecciona recurso"}, :class =>"payment") %>
+      <label for="roles">Roles:</label>
+      <%= collection_select(:name, :id, @roles, :id, :name, options ={:prompt => "-Selecciona rol"}, :class =>"payment") %>
+      <%= submit_tag 'Submit' %>
+      <br>    
+      <%= link_to 'Gestión de roles', roles_path %>        
+    </fieldset>        
+  <% end %>
+
+ 
+  <%= form_tag(generate_document_panelcontrols_path, :method => "post") do || %>
+    <fieldset>
+      <legend>Generar un nuevo documento</legend>
+      <p>Es obligatorio añadir una nota para esta versión</p>
+      <%= text_area(:changelog, :text, :size => "20x5") %>    
+      <p> <%= submit_tag 'General Nuevo documento, sera enviado a los usuarios' %></p>
+    </fieldset>
+  <% end %>
+
+  <fieldset>
+    <%= link_to "Informe, Generar y enviar  #{current_user['email']}, las confirmaciones del documento #{get_last_doc_version} ", "/inlinepdf/users_confirm/#{get_last_doc_version}", 
+                 :id => "confirmations", :class => "confirm" %>
+  </fieldset>
+  <fieldset>
+    <%= link_to 'Gestión de Prioridades', priorities_path %>
+  </fieldset>
+  <%= link_to 'Estados que pueden tener los proyectos ' + war , proyectostatuses_path %>
+</fielset>

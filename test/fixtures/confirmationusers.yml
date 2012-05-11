@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  confirmation_token: MyString
+  confirmed_at: 2011-08-08
+  confirmation_sent_at: 2011-08-08
+  user_id: MyString
+
+two:
+  confirmation_token: MyString
+  confirmed_at: 2011-08-08
+  confirmation_sent_at: 2011-08-08
+  user_id: MyString

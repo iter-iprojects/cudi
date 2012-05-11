@@ -1,0 +1,14 @@
+
+<% content_for :commentproyecto do %>
+  <% hot= 'http://'.to_s+request.host_with_port.to_s %>
+  <% if (hot.nil?)%>
+    <% hot= 'http://'.to_s+request.host.to_s %>
+  <% end  %>
+  <% if (!hot.nil? && !@publicproyectode.comments.nil?) %>
+    <% @publicproyectode.comments = @publicproyectode.comments.gsub('src="uploads','src="'+hot+'/uploads') %> 
+    <%= raw @publicproyectode.comments  %>
+  <% end %>
+<% end %>
+
+
+

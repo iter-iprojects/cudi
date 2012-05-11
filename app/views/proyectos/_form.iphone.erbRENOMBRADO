@@ -1,0 +1,69 @@
+<%= form_for @proyecto, :remote => true  do |f| %>
+  <% if @proyecto.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@proyecto.errors.count, "error") %> prohibited this proyecto from being saved:</h2>
+
+      <ul>
+      <% @proyecto.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <aside data-role="fieldcontain">
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </aside>
+   <aside data-role="fieldcontain">
+    <%= f.label :priority %><br />
+    <%= f.text_field :priority %>
+  </aside>
+
+  <aside data-role="fieldcontain">
+    <%= f.label :mainresource %><br />
+
+  <%= select_tag("proyecto[resources]", options_for_select(users_all.collect { |ff| [ff.email, ff.id] }, users_all.collect { |fs| fs.id }), {:multiple=>true, :id => "proyecto_resources"})  %>
+	</aside>
+
+
+
+  <aside data-role="fieldcontain">
+    <%= f.label :status %><br />
+    <%= f.text_field :status,  :value => 'activo'%>
+  </aside>
+  <aside data-role="fieldcontain">
+    <%= f.label :comments %><br />
+    <%= f.text_field :comments %>
+  </aside>
+<!--
+  <aside class="field">
+    <#%= f.label :actions %><br />
+    <#%= f.text_field :actions %>
+  </aside>
+-->
+  <aside data-role="fieldcontain">
+    <%= f.label :averange %><br />
+ 
+ 	<input type="range" name="averange" id="averange" value="0" min="0" max="100"  />
+
+  </aside>
+
+ 
+  <aside class="ui-btn ui-btn-corner-all ui-shadow ui-btn-up-a" data-theme="a" aria-disabled="false">
+  	<aside class="ui-btn-inner ui-btn-corner-all">
+      <aside class="ui-btn-text" data-theme="a"><%= f.submit   :class => 'file_input' %>
+      </aside>
+     </aside>     
+  </aside>
+  </section>
+<div id="userplace">
+
+
+</div>
+  <% end %>
+
+
+
+
+

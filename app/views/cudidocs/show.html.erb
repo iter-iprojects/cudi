@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @cudidoc.user_id %>
+</p>
+
+<p>
+  <b>Typedoc:</b>
+  <%= @cudidoc.typedoc %>
+</p>
+
+<p>
+  <b>Namefile:</b>
+  <%= @cudidoc.namefile %>
+</p>
+
+
+<%= link_to 'Edit', edit_cudidoc_path(@cudidoc) %> |
+<%= link_to 'Back', cudidocs_path %>

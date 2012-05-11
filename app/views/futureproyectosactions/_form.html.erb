@@ -1,0 +1,37 @@
+<%= form_for(@futureproyectosaction) do |f| %>
+  <% if @futureproyectosaction.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@futureproyectosaction.errors.count, "error") %> prohibited this futureproyectosaction from being saved:</h2>
+
+      <ul>
+      <% @futureproyectosaction.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+	<%= f.label :proyecto %><br />
+	<%=  collection_select(:futureproyectosaction, :proyecto, @proyectos, :id, :title, :prompt => true) %>
+  </div>
+
+  <div class="field">
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :comments %><br />
+    <%= f.text_field :comments %>
+  </div>
+  <div class="field">
+    <%= f.label :resources %><br />
+
+  <%= select_tag("futureproyectosaction[resources]", options_for_select(@users.collect { |ff| [ff.email, ff.id] }, @users.collect { |fs| fs.id }),
+                   {:multiple=>true, :id => "proyecto_resources"}) %>
+</div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

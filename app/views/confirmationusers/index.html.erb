@@ -1,0 +1,29 @@
+<h1>Listing confirmationusers</h1>
+
+<table>
+  <tr>
+    <th>Confirmation token</th>
+    <th>Confirmed at</th>
+    <th>Confirmation sent at</th>
+    <th>User</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @confirmationusers.each do |confirmationuser| %>
+  <tr>
+    <td><%= confirmationuser.confirmation_token %></td>
+    <td><%= confirmationuser.confirmed_at %></td>
+    <td><%= confirmationuser.confirmation_sent_at %></td>
+    <td><%= confirmationuser.user_id %></td>
+    <td><%= link_to 'Show', confirmationuser %></td>
+    <td><%= link_to 'Edit', edit_confirmationuser_path(confirmationuser) %></td>
+    <td><%= link_to 'Destroy', confirmationuser, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Confirmationuser', new_confirmationuser_path %>

@@ -1,0 +1,10 @@
+.buttonf{ 
+  background-color: #666699;  
+  color: #ffffff;  
+}
+
+#enlacescontain #fa {color:red;}
+#enlacescontain span:hover, span:active {text-decoration: none;color: #fff; background: #869023;}
+
+
+

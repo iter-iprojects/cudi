@@ -1,0 +1,448 @@
+# coding: utf-8
+   	<%= javascript_tag "function showhelp(){ 
+ 			 var jqxhr = $.post('cudidocs/enduserspreeadsheet' ,  function(d) {  
+                                   })
+            .success(function() {
+             })
+            .error(function() {
+             })
+            .complete(function() { 
+             });    	
+   				}
+   			function cerrarfullscreen(){ $('#fullscreen').remove(); $('.jSheetTabContainer').remove(); };"
+   	%>	
+<script>
+function gdoc(i){
+         $("#statusadvice").attr("style", "display:block");
+        //aqui una funcion ruby para traer el contenido 
+	    var jqxhr = $.post("cudidocs/getHtml","id="+i ,  function(d) {
+	      //alert("success" + d);
+	    })
+	    .success(function() { //alert("second success");
+	     })
+	    .error(function() { //alert("error");
+	     })
+	    .complete(function() { //alert("complete");
+
+         
+            $("#statusadvice").attr("style", "display:none");  
+	     });
+
+    // perform other work here ...
+
+    // Set another completion function for the request above
+    jqxhr.complete(function(){ //alert("second complete");
+
+    	 	
+    });
+        
+
+}
+
+
+function sendpdf(){
+
+	var wo =   $("#jSheetBarTop_0_0").html();
+	var ndivtop=$('#jSheetBarTop_0_0 div').size();
+    var sahtml=  $("#jQuerySheet0").html();
+
+
+	
+	var t = prompt('¿email?');
+	if (t) {
+		var asu = prompt('¿Asunto/título?');
+		sahtml = '<div id="asu"><h1>' + asu + '</h1></div><br><br><br><br>' + sahtml;
+		
+		sahtml=castillian(sahtml);
+		
+		asu=castillian(asu);
+		
+
+      	var jqxhr = $.post("cudidocs/sendpdf" ,'ht=' + escape(sahtml) +'; asu=' + escape(asu) +';  em="' + t   + '";' ,  function(d) {  
+	    			   })
+	    .success(function() {
+	     })
+	    .error(function() {
+	     })
+	    .complete(function() { 
+	    	
+        	 $("#statusadvice").attr("style", "display:none");  
+	     });			
+    	
+    }
+
+}
+
+
+function loaduserdoc(){
+ $("#statusadvice").attr("style", "display:block");
+	var jqxhr = $.post("cudidocs/getalldocs" ,  function(d) {  
+	    			   })
+	    .success(function() {
+	     })
+	    .error(function() {
+	     })
+	    .complete(function() { 
+        	 $("#statusadvice").attr("style", "display:none");  
+	     });	
+}
+
+
+function loadpublicuserdoc(){
+     $("#statusadvice").attr("style", "display:block");
+	var jqxhr = $.post("cudidocs/getallpublicdocs" ,  function(d) {  
+	    			   })
+	    .success(function() {
+	     })
+	    .error(function() {
+	     })
+	    .complete(function() { 
+            $("#statusadvice").attr("style", "display:none");
+	     });	
+}
+
+
+
+
+
+
+
+
+
+</script>
+<div id="htmlcontaindiv"></div>
+<input id="htmlcontain" value="" style="visibility:hidden;">
+<input id="fid" value="" style="visibility:hidden;" >
+<input id="tempfn" value="" style="visibility:hidden;">
+
+
+<%content_for :cudidocs do%>
+  loquesea
+<% end  %>    
+ 
+ <script type="text/javascript">
+
+host = '<%= request.host_with_port %>';
+
+
+            $(function(){
+                //Here is where we initiate the sheets
+                //every time sheet is created it creates a new jQuery.sheet.instance (array), to manipulate each sheet, the jQuery object is returned
+                $('#jQuerySheet0').sheet({
+                    title: 'es cudi docs ',
+                    inlineMenu: inlineMenu($.sheet.instance),
+                    urlGet: 'http://' + host + '/javascripts/jquery_sheet/sheets/new.html',
+                    autoFiller: true,
+                    editable: true,
+                    resizable: 	true 
+                });
+        
+                /*
+        		$('#jQuerySheet1').sheet({
+                    title: 'Enduser Documentation <a href="#" onclick="jQuery.sheet.instance[1].toggleState(); return false;">EDIT</a>',
+                    inlineMenu: inlineMenu($.sheet.instance), 
+                    editable: false
+                });
+                */
+
+        
+                                
+                //examples of how to use jQuery.sheet
+                /*
+                 //Inline sheet(s), non-editable (like a gridview)
+                 $('.jQuerySheet').sheet({
+                 title: 'jQuery.sheet - The Web Based Spreadsheet Demo',
+                 buildSheet: true, //will turn object #jQuerySheet's child tables into sheets
+                 editable: false,
+                 calcOff: true
+                 });
+                 
+                 //New single custom sized sheet
+                 $('#jQuerySheet').sheet({
+                 title: 'jQuery.sheet - The Web Based Spreadsheet Demo',
+                 inlineMenu: inlineMenu(jQuery.sheet.instance),
+                 buildSheet: '5x100'
+                 });
+                 
+                 //Custom object sheet(s)
+                 $('#jQuerySheet').sheet({
+                 title: 'jQuery.sheet - The Web Based Spreadsheet Demo',
+                 inlineMenu: inlineMenu(jQuery.sheet.instance),
+                 buildSheet: $('#jQuerySheet').find('table')
+                 });
+                 
+                 //Custom object sheet(s)
+                 $('#jQuerySheet').sheet({
+                 title: 'jQuery.sheet - The Web Based Spreadsheet Demo',
+                 inlineMenu: inlineMenu(jQuery.sheet.instance),
+                 buildSheet: $.sheet.makeTable.fromSize('5x100').add($.sheet.makeTable.fromSize('5x100'))
+                 });
+                 */
+                //This is to give a themeswitcher on the page
+                //$('#themeSwitcher').themeswitcher();
+                
+                //This is for some fancy menu stuff
+
+/*
+                var o = $('#structures');
+                var top = o.offset().top - 300;
+                $(document).scroll(function(e){
+                    if ($(this).scrollTop() > top) {
+                        $('#lockedMenu').removeClass('locked');
+                    }
+                    else {
+                        $('#lockedMenu').addClass('locked');
+                    }
+                }).scroll();
+*/
+            });            
+            //This function builds the inline menu to make it easy to interact with each sheet instance
+            function inlineMenu(I){
+                I = (I ? I.length : 0);
+                
+                //we want to be able to edit the html for the menu to make them multi-instance
+                var html = $('#inlineMenu').html().replace(/sheetInstance/g, "$.sheet.instance[" + I + "]");
+                
+                var menu = $(html);
+                
+                //The following is just so you get an idea of how to style cells
+                menu.find('.colorPickerCell').colorPicker().change(function(){
+                    $.sheet.instance[I].cellChangeStyle('background-color', $(this).val());
+                });
+                
+                menu.find('.colorPickerFont').colorPicker().change(function(){
+                    $.sheet.instance[I].cellChangeStyle('color', $(this).val());
+                });
+                
+                menu.find('.colorPickers').children().eq(1).css('background-image', "url('javascripts/jquery_sheet/images/palette.png')");
+                menu.find('.colorPickers').children().eq(3).css('background-image', "url('javascripts/jquery_sheet/images/palette_bg.png')");
+                
+                
+                return menu;
+            }
+            
+            function goToObj(s){
+            	//$("#displayjQuerySheet1").attr("style","display:block");
+            	//$("#jQuerySheet1").attr("style","display:block");
+                $('html, body').animate({
+                    scrollTop: $(s).offset().top
+                }, 'slow');
+                return false;
+            }
+        </script>
+        <!--Page styles-->
+        <style>
+            body {
+                background-color: #464646;
+                padding: 0px;
+                margin: 0px;
+                padding-bottom: 100px;
+                color: black;
+                font-family: sans-serif;
+                font-size: 13px;
+            }
+            
+            .wrapper {
+                margin: 10px;
+                background-color: #CCCCCC;
+            }
+            
+            .locked {
+                position: fixed;
+                top: expression(eval(document.body.scrollTop) + "px");
+                left:
+                20px;
+                z-index:
+                100;
+            }
+            
+      #lockedMenu * {
+        font-size: .85em ! important;
+      }
+      
+            #structures {
+                text-align: left;
+                font-size: 1.5em;
+                padding: 10px;
+                border: none;
+            }
+            
+            #header {
+                text-align: left;
+                font-size: 1.5em;
+                padding: 18px;
+                border: none;
+                padding-left: 150px;
+            }
+            
+            #footer {
+                text-align: center;
+                color: white;
+                font-size: .9em;
+            }
+            
+            #footer a {
+                font-size: 1.2em;
+                color: #FFFFFF;
+            }
+            
+            .prioridadprompt{
+            	z-index: 99999999;
+            }
+            
+        </style>
+
+
+
+<h1>Listing cudidocs</h1>
+
+        <h1 id="header" class="ui-state-default">
+
+          <a href="http://cudi/">
+            Docs  C.U.D.I 
+          </a>
+        </h1>
+        <div id="mainWrapper" class="ui-corner-all wrapper">
+        	
+            <table style="width: 100%; background-color:white;">
+                <tr>
+                    <td rowspan="2" style="width: 5px; vertical-align: top;">
+
+                        <div id="lockedMenu" class="locked ui-widget-header ui-corner-all" style="background-image: none;">
+                            <span id="themeSwitcher"></span>
+                            <ul style="padding-left: 15px;">
+                                <li>
+                                    <a href="#jQuerySheet0" id="minicio" onclick="cerrarfullscreen(); return goToObj('#jQuerySheet0');">Inicio</a>
+                                </li>
+                                <li>
+                                    <a href="#jQuerySheet0" onclick="loaduserdoc(); return goToObj('#misdocumentos'); ">Mis Documentos</a>
+
+                                </li>
+                                <li>
+                                    <a href="#jQuerySheet0" onclick="loadpublicuserdoc(); return goToObj('#documentospublicos'); ">Documentos Públicos</a>
+
+                                </li>
+                                <li>
+                                		<%=  link_to "Ayuda usuario final", "#", :onclick => "showhelp();"  %>
+                                    
+                                </li>
+
+
+                            </ul>
+              <br />
+                                      </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="vertical-align: top;">
+                        <div id="jQuerySheet0" class="jQuerySheet" style="height:auto; ">
+                         
+                        </div>
+                        <br/>
+                        <br/>
+            
+            			<div id="documentospublicos">
+            				
+                        </div>
+                        <div id="misdocumentos">
+                        	
+                        </div>
+                        
+                        
+                        
+                        <br/>
+                        <br/>
+                        <span id="displayjQuerySheet1" style="display:block;">
+                        	<div id="jQuerySheet1" class="jQuerySheet" style="height: 450px; display:block;">
+                        	</div>
+                        </span>
+
+                        
+                        
+                        
+       </div>
+
+       <span id="inlineMenu" style="display: none;">
+      <span>
+        <a href="#" onclick="sheetInstance.controlFactory.addRow(); return false;" title="Insert Row After Selected">
+          <img alt="Insert Row After Selected" src="javascripts/jquery_sheet/images/sheet_row_add.png"/></a>
+        <a href="#" onclick="sheetInstance.controlFactory.addRow(null, true); return false;" title="Insert Row Before Selected">
+
+          <img alt="Insert Row Before Selected" src="javascripts/jquery_sheet/images/sheet_row_add.png"/></a>
+        <a href="#" onclick="sheetInstance.controlFactory.addRow(null, null, ':last'); return false;" title="Add Row At End">
+          <img alt="Add Row" src="javascripts/jquery_sheet/images/sheet_row_add.png"/></a>
+        <a href="#" onclick="sheetInstance.controlFactory.addRowMulti(); return false;" title="Add Multi-Rows">
+          <img alt="Add Multi-Rows" src="javascripts/jquery_sheet/images/sheet_row_add_multi.png"/></a>
+        <a href="#" onclick="sheetInstance.deleteRow(); return false;" title="Delete Row">
+          <img alt="Delete Row" src="javascripts/jquery_sheet/images/sheet_row_delete.png"/></a>
+        <a href="#" onclick="sheetInstance.controlFactory.addColumn(); return false;" title="Insert Column After Selected">
+          <img alt="Insert Column After Selected" src="javascripts/jquery_sheet/images/sheet_col_add.png"/></a>
+
+        <a href="#" onclick="sheetInstance.controlFactory.addColumn(null, true); return false;" title="Insert Column Before Selected">
+          <img alt="Insert Column Before Selected" src="javascripts/jquery_sheet/images/sheet_col_add.png"/></a>
+        <a href="#" onclick="sheetInstance.controlFactory.addColumn(null, null, ':last'); return false;" title="Add Column At End">
+          <img alt="Add Column At End" src="javascripts/jquery_sheet/images/sheet_col_add.png"/></a>
+        <a href="#" onclick="sheetInstance.controlFactory.addColumnMulti(); return false;" title="Insert Multi-Columns">
+          <img alt="Add Multi-Columns" src="javascripts/jquery_sheet/images/sheet_col_add_multi.png"/></a>
+        <a href="#" onclick="sheetInstance.deleteColumn(); return false;" title="Delete Column">
+          <img alt="Delete Column" src="javascripts/jquery_sheet/images/sheet_col_delete.png"/></a>
+        <a href="#" onclick="sheetInstance.getTdRange(null, sheetInstance.obj.formula().val()); return false;" title="Get Cell Range">
+
+          <img alt="Get Cell Range" src="javascripts/jquery_sheet/images/sheet_get_range.png"/></a>
+        <a href="#" onclick="sheetInstance.s.fnSave(); return false;" title="Save Sheets">
+       
+          <img alt="Save Sheet" src="javascripts/jquery_sheet/images/disk.png"/></a>
+        <a href="#" onclick="sheetInstance.deleteSheet(); return false;" title="Delete Current Sheet">
+          <img alt="Delete Current Sheet" src="javascripts/jquery_sheet/images/table_delete.png"/></a>
+        <a href="#" onclick="sheetInstance.calc(sheetInstance.i); return false;" title="Refresh Calculations">
+          <img alt="Refresh Calculations" src="javascripts/jquery_sheet/images/arrow_refresh.png"/></a>
+        <a href="#" onclick="sheetInstance.cellFind(); return false;" title="Find">
+          <img alt="Find" src="javascripts/jquery_sheet/images/find.png"/></a>
+
+        <a href="#" onclick="sheetInstance.cellStyleToggle('styleBold'); return false;" title="Bold">
+          <img alt="Bold" src="javascripts/jquery_sheet/images/text_bold.png"/></a>
+        <a href="#" onclick="sheetInstance.cellStyleToggle('styleItalics'); return false;" title="Italic">
+          <img alt="Italic" src="javascripts/jquery_sheet/images/text_italic.png"/></a>
+        <a href="#" onclick="sheetInstance.cellStyleToggle('styleUnderline', 'styleLineThrough'); return false;" title="Underline">
+          <img alt="Underline" src="javascripts/jquery_sheet/images/text_underline.png"/></a>
+        <a href="#" onclick="sheetInstance.cellStyleToggle('styleLineThrough', 'styleUnderline'); return false;" title="Strikethrough">
+          <img alt="Strikethrough" src="javascripts/jquery_sheet/images/text_strike# Savethrough.png"/></a>
+        <a href="#" onclick="sheetInstance.cellStyleToggle('styleLeft', 'styleCenter styleRight'); return false;" title="Align Left">
+
+          <img alt="Align Left" src="javascripts/jquery_sheet/images/text_align_left.png"/></a>
+        <a href="#" onclick="sheetInstance.cellStyleToggle('styleCenter', 'styleLeft styleRight'); return false;" title="Align Center">
+          <img alt="Align Center" src="javascripts/jquery_sheet/images/text_align_center.png"/></a>
+        <a href="#" onclick="sheetInstance.cellStyleToggle('styleRight', 'styleLeft styleCenter'); return false;" title="Align Right">
+          <img alt="Align Right" src="javascripts/jquery_sheet/images/text_align_right.png"/></a>
+        <a href="#" onclick="sheetInstance.fillUpOrDown(); return false;" title="Fill Down">
+          <img alt="Fill Down" src="javascripts/jquery_sheet/images/arrow_down.png"/></a>
+        <a href="#" onclick="sheetInstance.fillUpOrDown(true); return false;" title="Fill Up">
+          <img alt="Fill Up" src="javascripts/jquery_sheet/images/arrow_up.png"/></a>
+
+        <span class="colorPickers">
+          <input title="Foreground color" class="colorPickerFont" style="background-image: url('javascripts/jquery_sheet/images/palette.png') ! important; width: 16px; height: 1ckground Color" class="colorPickerCell" style="background-image: url('javascripts/jquery_sheet/images/palette_bg.png') ! important; width: 16px; height: 16px;"/>
+                                </span>
+                                <a href="#" onclick="sheetInstance.obj.formula().val('=HYPERLINK(\'' + prompt('Enter Web Address', 'http://www.visop-dev.com/') + '\')').keydown(); return false;" title="HyperLink">
+                                        <img alt="Web Link" src="javascripts/jquery_sheet/images/page_link.png"/></a>
+                                <a href="#" onclick="sheetInstance.toggleFullScreen(); $('#lockedMenu').toggle(); return false;" title="Toggle Full Screen">
+                                        <img alt="Web Link" src="javascripts/jquery_sheet/images/arrow_out.png"/></a><!--<a href="#" onclick="insertAt('jSheetControls_formula', '~np~text~'+'/np~');return false;" title="Non-parsed"><img alt="Non-parsed" src="images/noparse.png"/></a>-->
+                        </span>
+                </span>
+                
+                
+ <div id="statusadvice" style="visibility:hidden;">               
+ <div class='fondoTransparente'>
+</div>
+<div class='center'>
+	POR FAVOR ESPERE ..............................
+</div>               
+</div>
+
+
+
+		
+   	
+
+
+
+

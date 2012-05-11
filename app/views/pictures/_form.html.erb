@@ -1,0 +1,45 @@
+<div class="bodyForm">
+  <%= form_for @picture, :html => {:multipart => true, :id => "file_upload"}, :validate => true do |f| %>
+  <% if @picture.errors.any? %>
+    <p id="error_explanation">
+      <h2><%= pluralize(@picture.errors.count, "error") %> prohibited this picture from being saved:</h2>
+
+      <ul>
+        <% @picture.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </p>
+  <% end %>
+
+  <p class="field">
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </p>
+  <p class="field">
+    <%= f.label :description %><br />
+    <%= f.text_area :description,:rows => 8, :cols => 40 %>
+  </p>
+  
+  <p id="picture_placeholder">
+    <% if @picture.file? %>
+    <p>
+      <%= image_tag(@picture.file_url(:medium)) %>
+    </p>
+    <% end %>
+  </p>
+
+  <p id="file_upload_container">
+    <%= f.file_field :file, :class =>'file_upload_browse' %>     
+      <button>Enviar</button>
+  </p>
+    <% end %>
+</div>
+<table id="files"></table>
+
+
+
+
+
+
+

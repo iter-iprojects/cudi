@@ -1,0 +1,25 @@
+<div class="actions">
+	<%= link_to 'Volver', pictures_path %>
+	<%= link_to 'Editar', edit_picture_path(@picture) %> 
+</div>
+
+<div class="bodyForm">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>T&iacute;tulo:</b>
+  <%= @picture.title %>
+</p>
+
+<p>
+  <b>Descripci&oacute;n:</b>
+  <%= @picture.description %>
+</p>
+
+<p>
+  <b>Archivo:</b>
+  <%= image_tag(@picture.file_url(:medium)) %>
+</p>
+
+
+</div>

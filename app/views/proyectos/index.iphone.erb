@@ -1,0 +1,50 @@
+
+<%= javascript_tag "$('#stanow').live('click', function() {
+  var m=$(this).attr('valu');
+  $.ajax({
+    type:'POST',
+    url:'/proyectos/list_proyect_iphone',
+    data:{sta: m, en: 'main'},
+    success: function(jsonResponse){
+      alert('Success: ' + jsonResponse.message);
+    },
+    error: function(jsonResponse){
+      jsonValue = jQuery.parseJSON( jsonResponse);    				
+    }	            
+  });
+}); "
+%>
+
+<div data-role="header">
+  <h1>Proyectos</h1>
+  <%= link_to 'Nuevo', new_proyecto_path, "data-icon" => "plus", "class" => "ui-btn-right" %>
+  <div data-role="navbar">
+    <ul>
+      <li><a href="/proyectos" class="ui-btn-active">que participo</a></li>
+      <li><a href="b.html">Que soy responsable</a></li>
+    </ul>
+  </div><!-- /navbar -->
+
+   <div data-role="navbar">
+     <ul>
+       <% list_status.each do |k,v|	%>
+       <li><a class="arrow" id="stanow"  href="#" valu="<%= k.name %>"  ><%= k.name %></a></li>
+       <% end %>
+     </ul>
+   </div><!-- /navbar -->	
+</div>
+ 
+<div data-role="content">
+  <div class="content-primary">	
+    <ul class="ui-listview" data-role="listview">			
+      <% @proyecto.each do |p| %> 
+        <li class="ui-btn ui-btn-icon-right ui-li ui-btn-up-c" data-theme="c"><div class="ui-btn-inner ui-li">
+          <div class="ui-btn-text"><a class="ui-link-inherit" href="#/demos/1.0b2/docs/lists/lists-nested.html&amp;ui-page=4-8">
+            <h3 class="ui-li-heading"><%= p.title %></h3><p class="ui-li-desc"><%= p.comments %></p></a>
+          </div>
+          <span class="ui-icon ui-icon-arrow-r ui-icon-shadow"></span>
+         </li>
+      <% end %>
+    </ul>
+  </div><!--/content-primary -->		
+</div>

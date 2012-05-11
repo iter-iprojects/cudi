@@ -1,0 +1,16 @@
+var s='<%= raw  shtml %>';
+host = '<%= request.host_with_port %>';
+
+$('fullscreen').remove(); 
+div = $("<div id='fullscreen' class='fullscreennada' style='align:top;'>").html(' ');
+$("body").append(div);
+$("#fullscreen").empty(); 
+
+              $('#fullscreen').sheet({
+                    title: 'Enduser Documentation <a href="#" onclick="jQuery.sheet.instance[1].toggleState(); return false;">EDIT</a>',
+                    inlineMenu: inlineMenu($.sheet.instance), 
+                    editable: false
+                });
+
+goToObj('#fullscreen');
+

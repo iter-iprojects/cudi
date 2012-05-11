@@ -1,0 +1,59 @@
+<%#= debug @proyectos %>
+<%#=  raw jqgrid("Listado de proyectos", "proyecto", "/proyectos", 
+[ 
+  
+  { :field => "id", :label => "id",  :editable => false  , :inline_edit => false }, 
+ 
+  { :field => "title", :label => "title",  :editable => true  , :inline_edit => true }, 
+   
+
+   
+  { :field => "resources", :label => "resources" , :editable => true, :edittype => "select",
+		  :editoptions => { :value =>  @roles  }  }, 
+   
+
+   
+  { :field => "status", :label => "status", :editable => true, :edittype => "select", :edittype => "select",
+                  :editoptions => { :value => @status  }  }, 
+  
+  { :field => "comments", :label => "comments", :editable => true  , :inline_edit => true }, 
+  { :field => "averange", :label => "averange", :editable => true  , :inline_edit => true }, 
+  { :field => "position", :label => "position" } ] , {:autowidth=>true,  :add => true, :edit => true, :inline_edit => false, :delete => true, :edit_url => "/proyectos/post_data" , :master_details => true, :details_url => "/proyectos" , :details_caption => "Recursos" } 
+ ) %>
+
+<%#= debug @proyectos %>
+
+<%#= debug @proyectoselect %>
+
+<%=  raw jqgrid("Listado de acciones", "action", "/actions",
+[
+
+  { :field => "id", :label => "id",  :editable => false   },
+
+  { :field => "title", :label => "title",  :editable => true,  :width => 200   },
+
+  { :field => "proyecto", :label => "Proyectos vinculados o no", :width => 200 ,  :editable => true, :edittype => "select",
+                  :editoptions => { :value => @proyectoselect   }  },
+
+
+  { :field => "comments", :label => "comments", :editable => true   }
+   ] , { :autowidth=>true,  :add => true, :edit => true, :inline_edit => true, :delete => true, :edit_url => "/actions/post_data_actions"   , :master_details => true, :details_url => "/actions/getresources" , :details_caption => "Recursos" }                
+ ) %>
+
+
+
+
+<%= raw jqgrid("Recursos de cada proyecto", "actions_details", "/actions/getresources",
+	[
+		{ :field => "id", :label => "id",  :editable => false  , :inline_edit => false },
+		{ :field => "resources"  ,   :label => "resources", :width => 500, :align => 'center',  :editable => true, :edittype => "select",
+                  :editoptions => { :value => @users  }  },
+		  { :field => "proyectoid"  ,   :label => "proyectos", :width => 500, :align => 'center',  :editable => true, :edittype => "select",
+                  :editoptions => { :value => @proyectoselect  }  }
+		
+		
+
+	], { :autowidth=>true,  :add => true, :edit => true, :inline_edit => true, :delete => true, :edit_url => "/proyectos/editresources"   }
+)%>
+
+
